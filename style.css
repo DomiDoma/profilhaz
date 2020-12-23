@@ -156,7 +156,7 @@ header span{
 }
 .toTopBtn{
     position: fixed;
-    top: 3rem;
+    top: -2rem;
     right: 0;
     background-color: var(--baseColor);
     color: var(--baseColorInvert);
