@@ -33,7 +33,7 @@ p{
     align-items: center;
     justify-content: center;
     margin: 1rem;
-    transition: transform 0.2s cubic-bezier(.5,.47,.16,1.47);
+    transition: transform 1s cubic-bezier(.03,.31,.1,.95);
 }
 section{
     display: flex;
@@ -45,7 +45,7 @@ section{
     border-radius: 1rem;
 }
 .sectiondiv:hover section{
-    box-shadow: 0 0 20px black;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
 }
 .sectiondiv:hover{
     transform: scale(1.1);

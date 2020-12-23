@@ -2,7 +2,7 @@
 (function () {
 
     const nav = document.querySelector('header nav');
-    const navLinks = document.querySelectorAll('header .navLink');
+    const navLinks = document.querySelectorAll('header nav .navLink');
     const cursor = document.querySelector('.cursor');
     const animation = function (e) {
         const text = this.querySelector('span');
@@ -51,6 +51,7 @@ const cardeffect = function (e) {
 }
 cards.forEach(a => a.addEventListener("mousemove", cardeffect));
 cards.forEach(a => a.addEventListener("mouseleave", cardeffect));
+
 //intro
 const intro = document.querySelector(".intro");
 const content = document.querySelector(".intro .content");
@@ -76,14 +77,14 @@ const topBtn = document.querySelector(".toTopBtn");
 window.onscroll = function () {
     var currentScrollPos = window.pageYOffset;
     if (prevScrollpos < currentScrollPos) {
-        header.style.transform = "translateY(-3rem)";
-        topBtn.style.top = "0";
+        //header.style.transform = "translateY(-3rem)";
+        topBtn.style.top = "3rem";
     } else {
-        header.style.transform = "";
+        //header.style.transform = "";
         topBtn.style.top = "3rem";
     }
     if (currentScrollPos < 5) {
-        topBtn.style.top = "0";
+        topBtn.style.top = "-2rem";
     }
     prevScrollpos = currentScrollPos;
 }
@@ -92,7 +93,7 @@ const sidemenu = document.querySelector(".sideMenu");
 const moreBtn = document.querySelector("#moreBtn");
 const closeBtn = document.querySelector("#closeBtn");
 moreBtn.addEventListener("click", ()=>{
-    sidemenu.style.height="50%";
+    sidemenu.style.height="33%";
 });
 closeBtn.addEventListener("click", ()=>{
     sidemenu.style.height="0%";
