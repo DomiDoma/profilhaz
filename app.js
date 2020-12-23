@@ -82,7 +82,7 @@ window.onscroll = function () {
         header.style.transform = "";
         topBtn.style.top = "3rem";
     }
-    if (currentScrollPos == 0) {
+    if (currentScrollPos < 5) {
         topBtn.style.top = "0";
     }
     prevScrollpos = currentScrollPos;
