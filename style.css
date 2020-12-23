@@ -1,0 +1,226 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    border: 0.1px solid rgb(88, 0, 0);
+    scroll-behavior: smooth;
+}
+
+:root{
+    --baseColor: rgb(255, 255, 255);
+    --baseColorInvert: rgb(0, 0, 0);
+}
+
+:any-link{
+    text-decoration: none;
+    color: white;
+}
+main{
+    width: 95%;
+    margin: auto;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+p{
+    margin-top: 0.5rem;
+}
+.sectiondiv{
+    position: relative;
+    width: 20%;
+    min-width: 15rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem;
+    transition: transform 0.2s cubic-bezier(.5,.47,.16,1.47);
+}
+section{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    background-color: var(--baseColor);
+    color: var(--baseColorInvert);
+    padding: 0.5rem;
+    border-radius: 1rem;
+}
+.sectiondiv:hover section{
+    box-shadow: 0 0 20px black;
+}
+.sectiondiv:hover{
+    transform: scale(1.1);
+}
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--baseColorInvert);
+    padding: 0 1.5rem;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 8;
+    overflow: hidden;
+    transition: transform 0.2s ease-in-out;
+}
+.intro{
+    background-color: var(--baseColor);
+    color: var(--baseColorInvert);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    text-transform: uppercase;
+    position: absolute;
+    top: 0;
+    z-index: 10;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    transition: all 0.3s ease-in;
+}
+.intro .content{
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: 1s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+}
+.intro .content img{
+    width: 100%;
+}
+
+body{
+    height: 1000vh;
+    background-image: linear-gradient(to bottom left, rgb(83, 133, 148), rgb(85, 180, 122));
+    background-attachment: fixed;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: lighter;
+    padding-top: 3rem;
+}
+nav{
+    display: flex;
+    justify-content: space-around;
+}
+.navLink{
+    text-decoration: none;
+    z-index: 9;
+}
+nav span{
+    display: inline-block;
+    padding: 0.5rem;
+    border-radius: 1rem;
+    transition: transform 0.1s linear;
+    color: white;
+    pointer-events: none;
+}
+#active span{
+    font-weight: bold;
+    background-color: var(--baseColor);
+    color: var(--baseColorInvert);
+}
+header span{
+    margin: 0.3rem;
+}
+.logo{
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.logo img{
+    height: 2rem;
+}
+.logo p{
+    font-weight: bold;
+    margin: auto 1rem;
+}
+.cursor {
+    pointer-events: none;
+    position: fixed;
+    padding: 0.1rem 0.2rem;
+    background-color: rgba(255, 255, 255, 0.651);
+    border-radius: 10rem;
+    transition: transform 0.1s cubic-bezier(.07,.23,0,.97);
+    opacity: 0;
+}
+.navLink:hover:not(#active) ~ .cursor {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(10);
+}
+.toTopBtn{
+    position: fixed;
+    top: 0;
+    right: 0;
+    background-color: var(--baseColor);
+    color: var(--baseColorInvert);
+    opacity: .5;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+.tooltip{
+    position: absolute;
+    white-space: nowrap;
+    top: 1rem;
+    right: 2.3rem;
+    display: none;
+    color: var(--baseColor);
+}
+.toTopBtn:hover .tooltip{
+    display: block;
+}
+
+
+.sideMenu nav{
+    flex-direction: column;
+    align-items: center;
+}
+.sideMenu{
+    position: fixed;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 0%;
+    width: 100%;
+    overflow: hidden;
+    background-color: var(--baseColorInvert);
+    transition: 0.5s cubic-bezier(1,.1,.17,1.19);
+}
+#moreBtn{
+    display: none;
+}
+@supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+    .sideMenu, header{
+        background-color: rgba(0, 0, 0, 0.5);
+        -webkit-backdrop-filter: blur(6px);
+        backdrop-filter: blur(6px);
+    }
+}
+@media(max-width: 35rem){
+    header nav{
+        display: none;
+    }
+    .logo p{
+        display: none;
+    }
+}
+@media(max-width: 35rem){
+    #moreBtn{
+        display: block;
+    }
+}
