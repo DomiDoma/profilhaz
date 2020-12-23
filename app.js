@@ -93,7 +93,7 @@ const sidemenu = document.querySelector(".sideMenu");
 const moreBtn = document.querySelector("#moreBtn");
 const closeBtn = document.querySelector("#closeBtn");
 moreBtn.addEventListener("click", ()=>{
-    sidemenu.style.height="33%";
+    sidemenu.style.height="50%";
 });
 closeBtn.addEventListener("click", ()=>{
     sidemenu.style.height="0%";
