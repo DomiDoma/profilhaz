@@ -40,8 +40,8 @@ const cardeffect = function (e) {
     const yVal = e.layerY
     const height = card.clientHeight
     const width = card.clientWidth
-    let x = 15 * ((xVal - width / 2) / width);
-    let y = -15 * ((yVal - height / 2) / height);
+    let x = 10 * ((xVal - width / 2) / width);
+    let y = -10 * ((yVal - height / 2) / height);
     card.style.transform = `perspective(500px) rotateY(${x}deg) rotateX(${y}deg)`;
     card.style.transition = "";
     if (e.type == "mouseleave") {
@@ -90,13 +90,23 @@ window.onscroll = function () {
 }
 //side menu
 const sidemenu = document.querySelector(".sideMenu");
+const sidemenuBackground = document.querySelector(".sideMenuBackground");
 const moreBtn = document.querySelector("#moreBtn");
 const closeBtn = document.querySelector("#closeBtn");
 moreBtn.addEventListener("click", ()=>{
-    sidemenu.style.height="50%";
+    sidemenu.style.height="33%";
+    sidemenuBackground.style.opacity="0.5";
+    sidemenuBackground.style.pointerEvents="all";
 });
 closeBtn.addEventListener("click", ()=>{
     sidemenu.style.height="0%";
+    sidemenuBackground.style.opacity="0";
+    sidemenuBackground.style.pointerEvents="none";
+});
+sidemenuBackground.addEventListener("click", ()=>{
+    sidemenu.style.height="0%";
+    sidemenuBackground.style.opacity="0";
+    sidemenuBackground.style.pointerEvents="none";
 });
 
 
