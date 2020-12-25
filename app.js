@@ -116,9 +116,9 @@ moreBtn.addEventListener("click", () => {
     sidemenu.style.height = "20rem";
     sidemenuBackground.style.opacity = "0.5";
     sidemenuBackground.style.pointerEvents = "all";
-    body.style.position = "fixed";
-    //body.style.top = `-${currentSP}px`;
-    //html.style.scrollBehavior = "unset";
+    //body.style.position = "fixed";
+    body.style.top = `-${currentSP}px`;
+    html.style.scrollBehavior = "unset";
 });
 closeBtn.addEventListener("click", hideSideMenu);
 sidemenuBackground.addEventListener("click", hideSideMenu);
@@ -128,10 +128,10 @@ function hideSideMenu(e) {
     sidemenu.style.height = "0%";
     sidemenuBackground.style.opacity = "0";
     sidemenuBackground.style.pointerEvents = "none";
-    body.style.position = "unset";
+    //body.style.position = "unset";
     if (e.type == "click") {
-        //window.scrollTo(0, currentSP);
-        //html.style.scrollBehavior = "smooth";
+        window.scrollTo(0, currentSP);
+        html.style.scrollBehavior = "smooth";
     }
     CheckCurrentSP();
 }
