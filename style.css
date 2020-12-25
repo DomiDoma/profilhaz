@@ -239,10 +239,13 @@ header span{
         pointer-events: none;
         flex-basis: unset;
     }
-    .toTopBtn{
-        display: none;
-    }
     body{
-        background: none;
+        background: linear-gradient(rgb(24, 51, 30), rgb(81, 168, 81));
+    }
+    .toTopBtn{
+        transition: none;
+    }
+    .sideMenu{
+        border-bottom: 1px solid black;
     }
 }

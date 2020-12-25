@@ -95,11 +95,17 @@ function CheckCurrentSP(){
         topBtn.style.top = "-2rem";
     }
     else {
-        if (window.innerWidth < 750) {
-            topBtn.style.top = "3.5rem";
+        if(window.innerWidth < 600){
+            topBtn.style.top = "95%";
+            topBtn.style.left = "20%";
+        }
+        else if (window.innerWidth < 750) {
+            topBtn.style.top = "3rem";
+            topBtn.style.left = "";
         }
         else {
-            topBtn.style.top = "0.6rem";
+            topBtn.style.top = "0.7rem";
+            topBtn.style.left = "";
         }
     }
 }
