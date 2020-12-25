@@ -3,8 +3,9 @@
     margin: 0;
     box-sizing: border-box;
     border: 0px solid rgb(88, 0, 0);
+}
+html{
     scroll-behavior: smooth;
-    
 }
 
 :root{
@@ -17,8 +18,8 @@
     color: white;
 }
 main{
-    width: 100%;
-    margin: auto;
+    width: 95%;
+    margin: 1rem auto;
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
@@ -26,7 +27,7 @@ main{
 p{
     margin-top: 0.5rem;
 }
-.sectiondiv{
+.hoverEffect{
     position: relative;
     min-width: 15rem;
     display: flex;
@@ -43,13 +44,14 @@ section{
     justify-content: space-around;
     background-color: var(--baseColor);
     color: var(--baseColorInvert);
+    opacity: 0.8;
     padding: 0.5rem;
     border-radius: 1rem;
 }
-.sectiondiv:hover section{
+.hoverEffect:hover section{
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
 }
-.sectiondiv:hover{
+.hoverEffect:hover{
     transform: scale(1.1);
 }
 header{
@@ -80,6 +82,7 @@ header{
     height: 100vh;
     overflow: hidden;
     transition: all 0.3s ease-in;
+    pointer-events: none;
 }
 .intro .content{
     position: absolute;
@@ -99,7 +102,9 @@ header{
 
 body{
     height: 1000vh;
-    background-image: linear-gradient(to bottom left, rgb(83, 133, 148), rgb(85, 180, 122));
+    background-image: radial-gradient(rgb(0,0,0,0),rgba(0, 0, 0, 0.842)),url("background.jpg") ;
+    background-position: center;
+    background-size: cover;
     background-attachment: fixed;
     color: white;
     font-family: Arial, Helvetica, sans-serif;
@@ -118,12 +123,12 @@ nav{
 nav span{
     display: inline-block;
     padding: 0.5rem;
-    border-radius: 1rem;
     transition: transform 0.1s linear;
     color: white;
     pointer-events: none;
 }
 #active span{
+    border-radius: 1rem;
     font-weight: bold;
     background-color: var(--baseColor);
     color: var(--baseColorInvert);
@@ -147,42 +152,33 @@ header span{
 .cursor {
     pointer-events: none;
     position: fixed;
-    padding: 0.1rem 0.2rem;
     background-color: rgba(255, 255, 255, 0.651);
-    border-radius: 10rem;
-    transition: transform 0.1s cubic-bezier(.07,.23,0,.97);
+    border-radius: 1rem;
+    height: 2.2rem;
+    width: 4.4rem;
     opacity: 0;
 }
 .navLink:hover:not(#active) ~ .cursor {
     opacity: 1;
-    transform: translate(-50%, -50%) scale(10);
+    transform: translate(-50%, -50%) scale(1);
 }
 .toTopBtn{
     position: fixed;
     top: -2rem;
-    right: 0;
-    background-color: var(--baseColor);
-    color: var(--baseColorInvert);
+    left: 50%;
+    transform: translate(-50%);
+    background-color: var(--baseColorInvert);
+    color: var(--baseColor);
     opacity: .5;
-    width: 2rem;
-    height: 2rem;
     border-radius: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     transition: 0.2s ease-in-out;
-}
-.tooltip{
-    position: absolute;
-    white-space: nowrap;
-    top: 1rem;
-    right: 2.3rem;
-    display: none;
-    color: var(--baseColor);
-}
-.toTopBtn:hover .tooltip{
-    display: block;
+    padding: 0.3rem 0.6rem;
+    z-index: 8;
+    font-size: 0.2rem;
 }
 
 
@@ -221,6 +217,7 @@ header span{
 #moreBtn{
     margin: 0 2rem;
     display: none;
+    cursor: pointer;
 }
 @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
     .sideMenu, header{
@@ -229,7 +226,7 @@ header span{
         backdrop-filter: blur(6px);
     }
 }
-@media(max-width: 35rem){
+@media(max-width: 600px){
     header nav{
         display: none;
     }
@@ -239,9 +236,12 @@ header span{
     #moreBtn{
         display: block;
     }
-    .sectiondiv{
+    .hoverEffect{
         width: 100%;
         pointer-events: none;
         flex-basis: unset;
+    }
+    .toTopBtn{
+        display: none;
     }
 }

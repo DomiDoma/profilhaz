@@ -1,26 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hu">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>HELLO</title>
+    <link rel="icon" href="icon.png">
+    <title>PROFI-LHÁZ KFT. - Kezdőlap</title>
 </head>
 
 <body>
-    <div class="intro">
-        <h1>DOMA'S PAGE</h1>
-    </div>
-    <header>
-        <span class="logo">DOMA'S PAGE</span>
+    <div class="intro"><span class="content"><img class="logo" id="logo" src="logo.jpeg" alt="Logo"></span></div>
+    <div class="sideMenu">
         <nav>
-            <a id="active" href="#" class="navLink"><span>Home</span></a>
-            <a href="about.html" class="navLink"><span>About</span></a>
-            <a href="#" class="navLink"><span>Support</span></a>
+            <a class="navLink" id="closeBtn"><span>&times;</span></a>
+            <a id="active" href="index.html" class="navLink"><span>Kezdőlap</span></a>
+            <a href="about.html" class="navLink"><span>Rólunk</span></a>
+            <a href="#" class="navLink"><span>Kontakt</span></a>
+        </nav>
+    </div>
+    <div class="sideMenuBackground"></div>
+    <header>
+        <span onclick="window.location='index.html'" class="logo"><img src="logoPNG.png" alt="Logo">
+            <p>PROFI-LHÁZ</p>
+        </span>
+        <a class="navLink" id="moreBtn"><span>&#9776;</span></a>
+        <nav>
+            <a id="active" href="index.html" class="navLink"><span>Kezdőlap</span></a>
+            <a href="about.html" class="navLink"><span>Rólunk</span></a>
+            <a href="#" class="navLink"><span>Kontakt</span></a>
             <div class="cursor"></div>
         </nav>
     </header>
+    <span onclick="window.location='#'" class="toTopBtn">&#129129; Az oldal tetejére</span>
+
+    <main>
+        <section>
+            <h1>Hello</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, soluta! Incidunt rerum molestias
+                ipsum quibusdam nostrum quas amet nobis temporibus expedita architecto reiciendis molestiae, aperiam
+                iste ex nemo, exercitationem obcaecati.</p>
+        </section>
+    </main>
+
     <script src="app.js"></script>
 </body>
 

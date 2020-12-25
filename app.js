@@ -33,7 +33,7 @@
 
 })();
 //card effect
-const cards = document.querySelectorAll("main .sectiondiv");
+const cards = document.querySelectorAll("main .hoverEffect");
 const cardeffect = function (e) {
     const card = this.querySelector('section');
     const xVal = e.layerX
@@ -55,62 +55,86 @@ cards.forEach(a => a.addEventListener("mouseleave", cardeffect));
 //intro
 const intro = document.querySelector(".intro");
 const content = document.querySelector(".intro .content");
+const body = document.querySelector("body");
 if (!sessionStorage.getItem("visited")) {
     window.addEventListener("load", () => {
         setTimeout(function () {
+            body.style.position = "fixed";
             content.style.top = "50%";
             content.style.opacity = "1";
         }, 500)
         setTimeout(function () {
             intro.style.height = "0vh";
+            body.style.position = "unset";
         }, 1500)
     })
     sessionStorage.setItem("visited", true);
 }
 else {
     intro.style.display = "none";
+    body.style.position = "unset";
 }
-//hide header with scrolling
+//hide header with scrolling and toTopBtn settings
 var prevScrollpos = window.pageYOffset;
 const header = document.querySelector("header");
 const topBtn = document.querySelector(".toTopBtn");
 window.onscroll = function () {
     var currentScrollPos = window.pageYOffset;
+    CheckCurrentSP();
     if (prevScrollpos < currentScrollPos) {
         //header.style.transform = "translateY(-3rem)";
-        topBtn.style.top = "3rem";
     } else {
         //header.style.transform = "";
-        topBtn.style.top = "3rem";
-    }
-    if (currentScrollPos < 5) {
-        topBtn.style.top = "-2rem";
     }
     prevScrollpos = currentScrollPos;
+}
+//check currentscrollPos
+function CheckCurrentSP(){
+    const currentScrollPos = window.pageYOffset;
+    if (currentScrollPos < 2000) {
+        topBtn.style.top = "-2rem";
+    }
+    else {
+        if (window.innerWidth < 750) {
+            topBtn.style.top = "3.5rem";
+        }
+        else {
+            topBtn.style.top = "0.6rem";
+        }
+    }
 }
 //side menu
 const sidemenu = document.querySelector(".sideMenu");
 const sidemenuBackground = document.querySelector(".sideMenuBackground");
 const moreBtn = document.querySelector("#moreBtn");
 const closeBtn = document.querySelector("#closeBtn");
+const html = document.querySelector("html");
+let currentSP = 0;
 moreBtn.addEventListener("click", () => {
-    sidemenu.style.border = "1px solid black";
-    sidemenu.style.height = "33%";
+    //sidemenu.style.border = "1px solid black";
+    currentSP = window.pageYOffset;
+    sidemenu.style.height = "20rem";
     sidemenuBackground.style.opacity = "0.5";
     sidemenuBackground.style.pointerEvents = "all";
+    body.style.position = "fixed";
+    body.style.top = `-${currentSP}px`;
+    html.style.scrollBehavior = "unset";
 });
-closeBtn.addEventListener("click", () => {
-    sidemenu.style.border = "";
+closeBtn.addEventListener("click", hideSideMenu);
+sidemenuBackground.addEventListener("click", hideSideMenu);
+window.addEventListener("resize", hideSideMenu);
+function hideSideMenu(e) {
+    //sidemenu.style.border = "";
     sidemenu.style.height = "0%";
     sidemenuBackground.style.opacity = "0";
     sidemenuBackground.style.pointerEvents = "none";
-});
-sidemenuBackground.addEventListener("click", () => {
-    sidemenu.style.border = "";
-    sidemenu.style.height = "0%";
-    sidemenuBackground.style.opacity = "0";
-    sidemenuBackground.style.pointerEvents = "none";
-});
+    body.style.position = "unset";
+    if (e.type == "click") {
+        window.scrollTo(0, currentSP);
+        html.style.scrollBehavior = "smooth";
+    }
+    CheckCurrentSP();
+}
 
 
 
