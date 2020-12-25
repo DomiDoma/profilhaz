@@ -88,7 +88,7 @@ window.onscroll = function () {
     }
     prevScrollpos = currentScrollPos;
 }
-//check currentscrollPos
+//check currentscrollPos for topBtn position
 function CheckCurrentSP(){
     const currentScrollPos = window.pageYOffset;
     if (currentScrollPos < 2000) {

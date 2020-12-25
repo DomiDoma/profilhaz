@@ -104,7 +104,7 @@ body{
     height: 1000vh;
     background-image: radial-gradient(rgb(0,0,0,0),rgba(0, 0, 0, 0.842)),url("background.jpg") ;
     background-position: center;
-    background-size: cover;
+    background-size: auto;
     background-attachment: fixed;
     color: white;
     font-family: Arial, Helvetica, sans-serif;
