@@ -94,19 +94,23 @@ const sidemenuBackground = document.querySelector(".sideMenuBackground");
 const moreBtn = document.querySelector("#moreBtn");
 const closeBtn = document.querySelector("#closeBtn");
 moreBtn.addEventListener("click", () => {
+    sidemenu.style.border = "1px solid black";
     sidemenu.style.height = "33%";
     sidemenuBackground.style.opacity = "0.5";
     sidemenuBackground.style.pointerEvents = "all";
 });
 closeBtn.addEventListener("click", () => {
+    sidemenu.style.border = "";
     sidemenu.style.height = "0%";
     sidemenuBackground.style.opacity = "0";
     sidemenuBackground.style.pointerEvents = "none";
 });
 sidemenuBackground.addEventListener("click", () => {
+    sidemenu.style.border = "";
     sidemenu.style.height = "0%";
     sidemenuBackground.style.opacity = "0";
     sidemenuBackground.style.pointerEvents = "none";
 });
+
 
 
