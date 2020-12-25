@@ -242,4 +242,7 @@ header span{
     .toTopBtn{
         display: none;
     }
+    body{
+        background: none;
+    }
 }
