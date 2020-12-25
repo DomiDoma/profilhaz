@@ -99,18 +99,10 @@ header{
 .intro .content img{
     width: 100%;
 }
-.background{
-    z-index: -1;
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
+body{
     background-size: cover;
     background-image: radial-gradient(rgb(0,0,0,0),rgba(0, 0, 0, 0.842)),url("background.jpg");
     background-attachment: fixed;
-}
-body{
     height: 1000vh;
     color: white;
     font-family: Arial, Helvetica, sans-serif;
@@ -249,5 +241,8 @@ header span{
     }
     .toTopBtn{
         display: none;
+    }
+    body{
+        background: radial-gradient(rgb(70, 126, 63),rgb(25, 49, 23));
     }
 }
