@@ -243,6 +243,6 @@ header span{
         display: none;
     }
     body{
-        background: radial-gradient(rgb(70, 126, 63),rgb(25, 49, 23));
+        background: rgb(19, 41, 19);
     }
 }
