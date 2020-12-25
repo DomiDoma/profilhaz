@@ -116,10 +116,12 @@ const moreBtn = document.querySelector("#moreBtn");
 const closeBtn = document.querySelector("#closeBtn");
 const html = document.querySelector("html");
 let currentSP = 0;
+
 moreBtn.addEventListener("click", () => {
     //sidemenu.style.border = "1px solid black";
     currentSP = window.pageYOffset;
-    sidemenu.style.height = "20rem";
+    //sidemenu.style.height = "20rem";
+    sidemenu.style.top = "-1rem";
     sidemenuBackground.style.opacity = "0.5";
     sidemenuBackground.style.pointerEvents = "all";
     //body.style.position = "fixed";
@@ -131,7 +133,8 @@ sidemenuBackground.addEventListener("click", hideSideMenu);
 window.addEventListener("resize", hideSideMenu);
 function hideSideMenu(e) {
     //sidemenu.style.border = "";
-    sidemenu.style.height = "0%";
+    //sidemenu.style.height = "0%";
+    sidemenu.style.top = "-22rem";
     sidemenuBackground.style.opacity = "0";
     sidemenuBackground.style.pointerEvents = "none";
     //body.style.position = "unset";
