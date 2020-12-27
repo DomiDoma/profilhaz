@@ -1,15 +1,14 @@
 //navLinks highlight with cursor moving
 (function () {
-
     const nav = document.querySelector('header nav');
     const navLinks = document.querySelectorAll('.navLink');
     const cursor = document.querySelector('.cursor');
-    const animation = function (e) {
-        const text = this.querySelector('span');
-        text.style.pointerEvents="none";
-        const active = document.querySelector('header #active span');
+    const button = document.querySelectorAll('.navBtn');
+    const animation = function (e, a) {
+        const text = a;
+        const active = a;
         const { offsetX: x, offsetY: y } = e,
-            { offsetWidth: width, offsetHeight: height } = this,
+            { offsetWidth: width, offsetHeight: height } = a,
             move = 10,
             xMove = x / width * (move * 2) - move,
             yMove = y / height * (move * 2) - move;
@@ -26,23 +25,23 @@
         cursor.style.left = x + 'px';
         cursor.style.top = y + 'px';
     };
-    navLinks.forEach(b => b.addEventListener('mousemove', animation));
-    navLinks.forEach(b => b.addEventListener('mouseleave', animation));
+    navLinks.forEach(a => a.addEventListener('mousemove', e => animation(e, a)));
+    navLinks.forEach(a => a.addEventListener('mouseleave', e => animation(e, a)));
     nav.addEventListener('mousemove', cursorMove);
 
 })();
 //hoverEffect
 const cards = document.querySelectorAll(".hoverE");
-const cardeffect = function (e) {
-    if (window.innerWidth>600) {
-        const card = this.querySelector('#HE');
-        const xVal = e.layerX
-        const yVal = e.layerY
+const HoverEffect = function (e, a) {
+    if (window.innerWidth > 600) {
+        const card = a;
+        const xMove = e.layerX
+        const yMove = e.layerY
         const height = card.clientHeight
         const width = card.clientWidth
-        let x = 10 * ((xVal - width / 2) / width);
-        let y = -10 * ((yVal - height / 2) / height);
-        card.style.transform = `perspective(500px) rotateY(${x}deg) rotateX(${y}deg)`;
+        let x = 10 * ((xMove - width / 2) / width);
+        let y = -10 * ((yMove - height / 2) / height);
+        card.style.transform = `perspective(500px) rotateY(${x}deg) rotateX(${y}deg) scale(1.1)`;
         card.style.transition = "";
         if (e.type == "mouseleave") {
             card.style.transform = `rotateY(0deg) rotateX(0deg)`;
@@ -50,8 +49,8 @@ const cardeffect = function (e) {
         }
     }
 }
-cards.forEach(a => a.addEventListener("mousemove", cardeffect));
-cards.forEach(a => a.addEventListener("mouseleave", cardeffect));
+cards.forEach(a => a.addEventListener("mousemove", e => HoverEffect(e, a)));
+cards.forEach(a => a.addEventListener("mouseleave", e => HoverEffect(e, a)));
 //intro
 const intro = document.querySelector(".intro");
 const content = document.querySelector(".intro .content");
@@ -74,6 +73,16 @@ else {
     intro.style.display = "none";
     body.style.position = "unset";
 }
+//page switching animation
+const div = document.querySelector(".switchAnimation");
+window.addEventListener("load", () => {
+    const div = document.createElement("div");
+    div.classList.add("switchAnimation");
+    document.body.appendChild(div);
+    setTimeout(function () {
+        div.style.transform = "translateY(-100%)";
+    }, 100)
+})
 //hide header with scrolling
 var prevScrollpos = window.pageYOffset;
 const header = document.querySelector("header");
@@ -82,9 +91,9 @@ window.onscroll = function () {
     var currentScrollPos = window.pageYOffset;
     CheckCurrentSP();
     if (prevScrollpos < currentScrollPos) {
-        //header.style.transform = "translateY(-3rem)";
+        if(window.innerWidth<600) header.style.top = "-3rem";
     } else {
-        //header.style.transform = "";
+        if(window.innerWidth<600) header.style.top = "0";
     }
     prevScrollpos = currentScrollPos;
 }
@@ -145,7 +154,7 @@ function hideSideMenu(e) {
 //popup
 const popups = document.querySelectorAll(".popup");
 const popupWindow = document.querySelector("#popup-window");
-const popupCloseBtn = document.querySelector("#popup-close");
+const popupCloseBtn = document.querySelector("#close-button");
 const popupBGfade = document.querySelector("#popup-bgfade");
 function BuildPopup() {
     const h1 = this.querySelector("h2").textContent;
@@ -158,16 +167,17 @@ function BuildPopup() {
     const popupContent = document.querySelector("#popup-content");
     popupTitle.textContent = h1;
     popupText.textContent = text;
-    popupContent.innerHTML=ReadFile(`text/${id}.html`);
+    popupContent.innerHTML = ReadFile(`text/${id}.html`);
     popupImg.src = img;
 
     popupWindow.style.height = "90%";
     popupBGfade.style.display = "block";
+    popupWindow.focus();
     setTimeout(function () {
         popupBGfade.style.backdropFilter = "blur(6px)";
         popupBGfade.style.WebkitBackdropFilter = "blur(6px)";
         currentSP = window.pageYOffset;
-        body.style.position="fixed";
+        body.style.position = "fixed";
         body.style.top = `-${currentSP}px`;
         html.style.scrollBehavior = "unset";
     }, 500)
@@ -178,30 +188,27 @@ popupCloseBtn.addEventListener("click", () => {
     popupBGfade.style.display = "none";
     popupBGfade.style.backdropFilter = "";
     popupBGfade.style.WebkitBackdropFilter = "";
-    body.style.position="unset";
+    body.style.position = "unset";
     window.scrollTo(0, currentSP);
-        html.style.scrollBehavior = "smooth";
+    html.style.scrollBehavior = "smooth";
 });
 popupBGfade.addEventListener("click", () => {
     popupWindow.style.height = "0";
     popupBGfade.style.display = "none";
     popupBGfade.style.backdropFilter = "";
     popupBGfade.style.WebkitBackdropFilter = "";
-    body.style.position="unset";
+    body.style.position = "unset";
     window.scrollTo(0, currentSP);
-        html.style.scrollBehavior = "smooth";
+    html.style.scrollBehavior = "smooth";
 });
 //file reader
-function ReadFile(fileName){
-    var fileText="";
+function ReadFile(fileName) {
+    var fileText = "";
     var rawFile = new XMLHttpRequest();
     rawFile.open("GET", fileName, false);
-    rawFile.onreadystatechange = function ()
-    {
-        if(rawFile.readyState === 4)
-        {
-            if(rawFile.status === 200 || rawFile.status == 0)
-            {
+    rawFile.onreadystatechange = function () {
+        if (rawFile.readyState === 4) {
+            if (rawFile.status === 200 || rawFile.status == 0) {
                 fileText = rawFile.response;
             }
         }
@@ -210,3 +217,27 @@ function ReadFile(fileName){
     return fileText;
 }
 //img viewer
+document.querySelectorAll('.viewable').forEach(a => {
+    a.addEventListener('click', e => {
+        Hehe(a)
+    })
+})
+function Hehe(a) {
+    const imgContainer = document.createElement("div");
+    const closeBtn = document.createElement("span");
+    const span = document.createElement("span");
+    imgContainer.classList.add("img-viewer");
+    closeBtn.classList.add("#close-button");
+    imgContainer.style.backgroundImage = `url(${a.src})`
+    body.appendChild(imgContainer);
+    closeBtn.id = "close-button";
+    closeBtn.classList.add("navLink");
+    span.innerHTML = "&times;";
+    closeBtn.addEventListener("click", () => {
+        body.removeChild(imgContainer);
+    });
+    imgContainer.addEventListener("click", () => {
+        body.removeChild(imgContainer);
+    });
+    imgContainer.appendChild(closeBtn).appendChild(span);
+}

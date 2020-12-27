@@ -10,25 +10,28 @@
 </head>
 
 <body>
+    <!--Intro-->
     <div class="intro"><span class="content"><img class="logo" id="logo" src="logo.jpeg" alt="Logo"></span></div>
+    <!--SideMenu-->
     <div class="sideMenu">
         <nav>
-            <a class="navLink" id="closeBtn"><span>&times;</span></a>
-            <a id="active" href="index.html" class="navLink"><span>Kezdőlap</span></a>
-            <a href="about.html" class="navLink"><span>Rólunk</span></a>
-            <a href="#" class="navLink"><span>Kontakt</span></a>
+            <a class="navLink" id="closeBtn">&times;</a>
+            <a id="active" href="index.html" class="navLink">Kezdőlap</a>
+            <a href="about.html" class="navLink">Rólunk</a>
+            <a href="#" class="navLink">Kontakt</a>
         </nav>
     </div>
     <div class="sideMenuBackground"></div>
+    <!--Header-->
     <header>
         <span onclick="window.location='index.html'" class="logo"><img src="logoPNG.png" alt="Logo">
-            <p>PROFI-LHÁZ</p>
+            <p class="navLink">PROFI-LHÁZ</p>
         </span>
-        <a class="navLink" id="moreBtn"><span>&#9776;</span></a>
+        <a class="navLink" id="moreBtn">&#9776;</a>
         <nav>
-            <a id="active" href="index.html" class="navLink"><span>Kezdőlap</span></a>
-            <a href="about.html" class="navLink"><span>Rólunk</span></a>
-            <a href="#" class="navLink"><span>Kontakt</span></a>
+            <a id="active" href="index.html" class="navLink">Kezdőlap</a>
+            <a href="about.html" class="navLink">Rólunk</a>
+            <a href="#" class="navLink">Kontakt</a>
             <div class="cursor"></div>
         </nav>
     </header>
@@ -54,8 +57,8 @@
                 quae pariatur unde?
             </p>
         </section>
-        <div class="hoverE card popup" id="general">
-            <section id="HE" class="card-content">
+        <div class="card popup" id="general">
+            <section class="card-content hoverE">
                 <h2>Generál kivitelezés</h2>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic tenetur ea vero, labore, culpa itaque,
                     beatae iusto quibusdam fuga quod cupiditate molestiae at. Numquam, ipsam? Vitae, eaque soluta. Iure,
@@ -64,8 +67,8 @@
                 <p class="hint">Kattintás további infókért</p>
             </section>
         </div>
-        <div class="hoverE card popup" id="szerkezet">
-            <section id="HE" class="card-content">
+        <div class="card popup" id="szerkezet">
+            <section class="card-content hoverE">
                 <h2>Szerkezetkész kivitelezés</h2>
                 <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quam minima commodi quas repellat in, quos
                     quod? Beatae necessitatibus saepe quam itaque incidunt ipsam eaque, ad alias, quaerat rem nisi
@@ -77,16 +80,17 @@
     </main>
 
     <!--popup-->
-    <div id="popup-window">
+    <div tabindex="-1" id="popup-window">
         <span id="popup-header">
-            <span class="navLink" id="popup-close"><span>&times;</span></span>
+            <span id="close-button"><span>&times;</span></span>
             <h1 id="popup-title"></h1>
         </span>
         <p id="popup-text"></p>
-        <img id="popup-img" class="sample" src="" alt="">
+        <img id="popup-img" class="sample viewable" src="" alt="">
         <span id="popup-content"></span>
     </div>
     <div id="popup-bgfade"></div>
+
 
     <script src="app.js"></script>
 </body>

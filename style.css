@@ -30,11 +30,11 @@ body{
     background-size: cover;
     background-image: linear-gradient(rgba(0, 0, 0, 0.8) 20%,rgba(0, 0, 0,0), rgba(0, 0, 0, 0.8)),url("background.jpg");
     background-attachment: fixed;
-    height: 1000vh;
     color: white;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: lighter;
     padding-top: 3rem;
+    height: 1000vh;
 }
 p{
     margin: 0.5rem;
@@ -75,6 +75,33 @@ li{
     margin: 1rem auto;
     border-radius: 1rem;
 }
+:focus{
+    outline: none;
+}
+.img-viewer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 20;
+    border-radius: 1rem;
+    min-width: 15rem;
+    transition: 0.5s cubic-bezier(1,.1,.17,1.19);
+    background-image: none;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.viewable{
+    cursor: pointer;
+}
+img{
+    max-width: 90%;
+}
 /*popup*/
 .popup{
     cursor: pointer;
@@ -112,8 +139,8 @@ li{
     color: var(--baseColorInvert);
     margin: 1rem;
 }
-#popup-close{
-    position: absolute;
+#close-button{
+    position: fixed;
     top: 0.5rem;
     right: 0.5rem;
     color: var(--baseColor);
@@ -125,12 +152,18 @@ li{
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 12;
+    z-index: 21;
     cursor: pointer;
-    transition: 0.2s ease;
+    transition: 0.4s ease;
 }
-#popup-close:hover{
- transform: scale(1.2);
+#close-button span{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+}
+#close-button:hover{
+    transform: scale(1.2) rotate(180deg);
 }
 #popup-bgfade{
     position: fixed;
@@ -147,10 +180,6 @@ li{
 .hint{
     color: gray;
     margin: 0 auto;
-}
-.hoverE{
-    position: relative;
-    transition: transform 1s cubic-bezier(.03,.31,.1,.95);
 }
 .card{/*container of the .card*/
     min-width: 15rem;
@@ -169,25 +198,18 @@ li{
     padding: 0.5rem;
     border-radius: 1rem;
 }
-/*
-Need a parent div to use this like: <div class="hoverE">CONTENT</div>
-and CONTENT id has to be "HE"
-*/
-#HE{
+.hoverE{
+    transition: transform 1s cubic-bezier(.03,.31,.1,.95);
     transform-style: preserve-3d;
-    position: relative;
-}
-.hoverE:hover section{
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
 }
 .hoverE:hover{
-    transform: scale(1.1);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
 }
-.hoverE:hover #HE h2{
-    transform: translateZ(4rem) translate(-50%, 50%);
+.hoverE:hover h2{
+    transform: translateZ(4rem) translate(-50%, 80%);
 }
 
-#HE h2{
+.hoverE h2{
     position: absolute;
     color: var(--baseColor);
     text-shadow: 0 5px 10px black;
@@ -196,8 +218,8 @@ and CONTENT id has to be "HE"
     transform: translateZ(0) translateX(-50%) translateY(0);
     white-space: nowrap;
     transition: transform 1s ease;
+    pointer-events: none;
 }
-
 header{
     display: flex;
     justify-content: space-between;
@@ -209,7 +231,21 @@ header{
     width: 100vw;
     z-index: 8;
     overflow: hidden;
-    transition: transform 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+.switchAnimation{
+    background-color: var(--baseColorInvert);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 20;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    transition: all 0.3s ease-in;
+    pointer-events: none;
 }
 .intro{
     background-color: var(--baseColor);
@@ -252,24 +288,20 @@ nav{
     margin: 0 2rem;
 }
 .navLink{
-    text-decoration: none;
-    z-index: 9;
-}
-nav span{
     display: inline-block;
     padding: 0.5rem;
     transition: transform 0.1s linear;
     color: white;
-    pointer-events: none;
+    text-decoration: none;
+    z-index: 9;
+    padding: 0.5rem;
+    margin: 0.3rem;
 }
-#active span{
+#active{
     border-radius: 1rem;
     font-weight: bold;
     background-color: var(--baseColor);
     color: var(--baseColorInvert);
-}
-header span{
-    margin: 0.3rem;
 }
 .logo{
     cursor: pointer;
@@ -284,7 +316,6 @@ header span{
     font-weight: bold;
     margin: auto 1rem;
 }
-/*navlink hoverE*/
 .cursor {
     pointer-events: none;
     position: fixed;
@@ -376,13 +407,13 @@ header span{
     #moreBtn{
         display: block;
     }
-    .hoverE{
-        max-width: 100%;
+    .card{
+        min-width: 100%;
     }
     .hoverE:hover{
         transform: none;
     }
-    .hoverE:hover #HE h2{
+    .hoverE:hover h2{
         transform: translateY(0) translateZ(0) translateX(-50%);
     }
     .sideMenu{
