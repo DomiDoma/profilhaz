@@ -101,7 +101,7 @@ function CheckCurrentSP() {
             topBtn.style.left = "20%";
         }
         else if (window.innerWidth < 750) {
-            topBtn.style.top = "3rem";
+            topBtn.style.top = "3.5rem";
             topBtn.style.left = "";
         }
         else {

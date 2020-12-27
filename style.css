@@ -2,7 +2,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    border: 1px solid rgb(88, 0, 0);
+    border: 0px solid rgb(88, 0, 0);
 }
 html{
     scroll-behavior: smooth;
@@ -100,6 +100,7 @@ li{
     position: sticky;
     top: 0;
     backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
 }
 #popup-title{
     font-size: 2rem;
@@ -183,13 +184,13 @@ and CONTENT id has to be "HE"
     transform: scale(1.1);
 }
 .hoverE:hover #HE h2{
-    transform: translateZ(4rem) translateX(-50%) translateY(50%);
+    transform: translateZ(4rem) translate(-50%, 50%);
 }
 
 #HE h2{
     position: absolute;
     color: var(--baseColor);
-    text-shadow: 0 0 10px black;
+    text-shadow: 0 5px 10px black;
     top: -1rem;
     left: 50%;
     transform: translateZ(0) translateX(-50%) translateY(0);
@@ -316,7 +317,7 @@ header span{
     transition: 0.2s ease-in-out;
     padding: 0.3rem 0.6rem;
     z-index: 8;
-    font-size: 0.2rem;
+    font-size: 0.8rem;
 }
 
 /*respo and support*/
@@ -356,6 +357,7 @@ header span{
     margin: 0 2rem;
     display: none;
     cursor: pointer;
+    font-size: 1.2rem;
 }
 @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
     .sideMenu, header{
@@ -381,8 +383,7 @@ header span{
         transform: none;
     }
     .hoverE:hover #HE h2{
-        transform: none;
-        position: fixed;
+        transform: translateY(0) translateZ(0) translateX(-50%);
     }
     .sideMenu{
         border: 1px solid black;
