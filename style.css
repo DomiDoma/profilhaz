@@ -6,6 +6,8 @@
 }
 html{
     scroll-behavior: smooth;
+    -webkit-scroll-behavior: smooth;
+    overflow: overlay;
 }
 
 :root{
@@ -24,36 +26,173 @@ main{
     justify-content: space-evenly;
     flex-wrap: wrap;
 }
+body{
+    background-size: cover;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.8) 20%,rgba(0, 0, 0,0), rgba(0, 0, 0, 0.8)),url("background.jpg");
+    background-attachment: fixed;
+    height: 1000vh;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: lighter;
+    padding-top: 3rem;
+}
 p{
-    margin-top: 0.5rem;
+    margin: 0.5rem;
+    font-size: 1rem;
 }
-.hoverEffect{
-    position: relative;
+h1{
+    font-size: 4rem;
+    font-weight: 900;
+    opacity: .8;
+}
+li{
+    margin-left: 2rem;
+}
+::-webkit-scrollbar {
+    width: 1rem;
+    border-radius: 1rem;
+}
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.877);
+    border-radius: 1rem;
+    margin: 3rem;
+    border: 4px solid transparent;
+    background-clip: content-box;
+}
+::-webkit-scrollbar-thumb {
+    background-color: rgb(126, 126, 126);
+    border-radius: 1rem;
+    width: 0.6rem;
+    border: 4px solid transparent;
+    background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+    border: 2px solid transparent;
+}
+/*sample images*/
+.sample{
+    width: 50%;
+    margin: 1rem auto;
+    border-radius: 1rem;
+}
+/*popup*/
+.popup{
+    cursor: pointer;
+}
+#popup-window{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 80%;
+    height: 0;
     min-width: 15rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 1rem;
-    transition: transform 1s cubic-bezier(.03,.31,.1,.95);
-    flex-wrap: wrap;
-    flex-basis: 20%;
-}
-section{
+    background-color: var(--baseColor);
+    border-radius: 1rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    z-index: 10;
+    overflow-y: auto;
+    overflow-x: hidden;
+    transition: 0.5s cubic-bezier(1,.1,.17,1.19);
+}
+#popup-header{
+    position: sticky;
+    top: 0;
+    backdrop-filter: blur(6px);
+}
+#popup-title{
+    font-size: 2rem;
+    margin: 0.5rem 1rem;
+    text-align: center;
+    color: var(--baseColorInvert);
+}
+#popup-text,#popup-content{
+    color: var(--baseColorInvert);
+    margin: 1rem;
+}
+#popup-close{
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    color: var(--baseColor);
+    font-size: 2rem;
+    background-color: var(--baseColorInvert);
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 12;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+#popup-close:hover{
+ transform: scale(1.2);
+}
+#popup-bgfade{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9;
+    display: none;
+    transition: 1s;
+}
+
+.hint{
+    color: gray;
+    margin: 0 auto;
+}
+.hoverE{
+    position: relative;
+    transition: transform 1s cubic-bezier(.03,.31,.1,.95);
+}
+.card{/*container of the .card*/
+    min-width: 15rem;
+    max-width: 40%;
+    display: flex;
+    justify-content: center;
+    margin: 2rem;
+    flex-wrap: wrap;
+    flex: 1;
+}
+.card-content{/*only usable with .card*/
+    display: flex;
+    flex-direction: column;
     background-color: var(--baseColor);
     color: var(--baseColorInvert);
-    opacity: 0.8;
     padding: 0.5rem;
     border-radius: 1rem;
 }
-.hoverEffect:hover section{
+/*
+Need a parent div to use this like: <div class="hoverE">CONTENT</div>
+and CONTENT id has to be "HE"
+*/
+#HE{
+    transform-style: preserve-3d;
+    position: relative;
+}
+.hoverE:hover section{
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
 }
-.hoverEffect:hover{
+.hoverE:hover{
     transform: scale(1.1);
 }
+
+#HE h2{
+    position: absolute;
+    color: var(--baseColor);
+    text-shadow: 0 0 10px black;
+    top: -1rem;
+    left: 50%;
+    transform: translateZ(2rem) translateX(-50%);
+    white-space: nowrap;
+}
+
 header{
     display: flex;
     justify-content: space-between;
@@ -102,16 +241,6 @@ header{
 .intro .content img{
     width: 100%;
 }
-body{
-    background-size: cover;
-    background-image: radial-gradient(rgb(0,0,0,0),rgba(0, 0, 0, 0.842)),url("background.jpg");
-    background-attachment: fixed;
-    height: 1000vh;
-    color: white;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: lighter;
-    padding-top: 3rem;
-}
 nav{
     display: flex;
     justify-content: space-around;
@@ -150,19 +279,23 @@ header span{
     font-weight: bold;
     margin: auto 1rem;
 }
+/*navlink hoverE*/
 .cursor {
     pointer-events: none;
     position: fixed;
-    background-color: rgba(255, 255, 255, 0.651);
+    background-color: rgb(255, 255, 255);
     border-radius: 1rem;
     height: 2.2rem;
     width: 4.4rem;
     opacity: 0;
+    mix-blend-mode: difference;
+    z-index: 10;
 }
 .navLink:hover:not(#active) ~ .cursor {
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
 }
+
 .toTopBtn{
     position: fixed;
     top: -2rem;
@@ -182,7 +315,7 @@ header span{
     font-size: 0.2rem;
 }
 
-
+/*respo and support*/
 .sideMenu nav{
     flex-direction: column;
     align-items: center;
@@ -237,18 +370,19 @@ header span{
     #moreBtn{
         display: block;
     }
-    .hoverEffect{
-        width: 100%;
-        pointer-events: none;
-        flex-basis: unset;
+    .hoverE{
+        max-width: 100%;
+    }
+    .hoverE:hover{
+        transform: none;
     }
     body{
         background: linear-gradient(rgb(24, 51, 30), rgb(81, 168, 81));
     }
-    .toTopBtn{
-        transition: none;
-    }
     .sideMenu{
         border: 1px solid black;
+    }
+    h1{
+        font-size: 2rem;
     }
 }

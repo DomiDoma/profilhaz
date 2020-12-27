@@ -2,10 +2,11 @@
 (function () {
 
     const nav = document.querySelector('header nav');
-    const navLinks = document.querySelectorAll('header nav .navLink');
+    const navLinks = document.querySelectorAll('.navLink');
     const cursor = document.querySelector('.cursor');
     const animation = function (e) {
         const text = this.querySelector('span');
+        text.style.pointerEvents="none";
         const active = document.querySelector('header #active span');
         const { offsetX: x, offsetY: y } = e,
             { offsetWidth: width, offsetHeight: height } = this,
@@ -13,45 +14,44 @@
             xMove = x / width * (move * 2) - move,
             yMove = y / height * (move * 2) - move;
         text.style.transform = `translate(${xMove}px, ${yMove}px)`;
-        text.style.textShadow = `${xMove}px ${yMove}px 2px rgb(34, 34, 34)`;
+        //text.style.textShadow = `${xMove}px ${yMove}px 2px rgb(34, 34, 34)`;
         active.style.textShadow = '';
         if (e.type === 'mouseleave') {
             text.style.transform = '';
-            text.style.textShadow = '';
+            //text.style.textShadow = '';
         }
     };
-
     const cursorMove = e => {
         const { clientX: x, clientY: y } = e;
         cursor.style.left = x + 'px';
         cursor.style.top = y + 'px';
     };
-
     navLinks.forEach(b => b.addEventListener('mousemove', animation));
     navLinks.forEach(b => b.addEventListener('mouseleave', animation));
     nav.addEventListener('mousemove', cursorMove);
 
 })();
-//card effect
-const cards = document.querySelectorAll("main .hoverEffect");
+//hoverEffect
+const cards = document.querySelectorAll(".hoverE");
 const cardeffect = function (e) {
-    const card = this.querySelector('section');
-    const xVal = e.layerX
-    const yVal = e.layerY
-    const height = card.clientHeight
-    const width = card.clientWidth
-    let x = 10 * ((xVal - width / 2) / width);
-    let y = -10 * ((yVal - height / 2) / height);
-    card.style.transform = `perspective(500px) rotateY(${x}deg) rotateX(${y}deg)`;
-    card.style.transition = "";
-    if (e.type == "mouseleave") {
-        card.style.transform = `rotateY(0deg) rotateX(0deg)`;
-        card.style.transition = "all 1s ease";
+    if (window.innerWidth>600) {
+        const card = this.querySelector('#HE');
+        const xVal = e.layerX
+        const yVal = e.layerY
+        const height = card.clientHeight
+        const width = card.clientWidth
+        let x = 10 * ((xVal - width / 2) / width);
+        let y = -10 * ((yVal - height / 2) / height);
+        card.style.transform = `perspective(500px) rotateY(${x}deg) rotateX(${y}deg)`;
+        card.style.transition = "";
+        if (e.type == "mouseleave") {
+            card.style.transform = `rotateY(0deg) rotateX(0deg)`;
+            card.style.transition = "all 1s ease";
+        }
     }
 }
 cards.forEach(a => a.addEventListener("mousemove", cardeffect));
 cards.forEach(a => a.addEventListener("mouseleave", cardeffect));
-
 //intro
 const intro = document.querySelector(".intro");
 const content = document.querySelector(".intro .content");
@@ -74,7 +74,7 @@ else {
     intro.style.display = "none";
     body.style.position = "unset";
 }
-//hide header with scrolling and toTopBtn settings
+//hide header with scrolling
 var prevScrollpos = window.pageYOffset;
 const header = document.querySelector("header");
 const topBtn = document.querySelector(".toTopBtn");
@@ -89,13 +89,15 @@ window.onscroll = function () {
     prevScrollpos = currentScrollPos;
 }
 //check currentscrollPos for topBtn position
-function CheckCurrentSP(){
+function CheckCurrentSP() {
     const currentScrollPos = window.pageYOffset;
     if (currentScrollPos < 2000) {
-        topBtn.style.top = "-2rem";
+        if (window.innerWidth < 600) topBtn.style.top = "110%";
+        else
+            topBtn.style.top = "-2rem";
     }
     else {
-        if(window.innerWidth < 600){
+        if (window.innerWidth < 600) {
             topBtn.style.top = "95%";
             topBtn.style.left = "20%";
         }
@@ -141,6 +143,64 @@ function hideSideMenu(e) {
     }
     CheckCurrentSP();
 }
+//popup
+const popups = document.querySelectorAll(".popup");
+const popupWindow = document.querySelector("#popup-window");
+const popupCloseBtn = document.querySelector("#popup-close");
+const popupBGfade = document.querySelector("#popup-bgfade");
+function BuildPopup() {
+    const h1 = this.querySelector("h2").textContent;
+    const text = this.querySelector("p").textContent;
+    const img = this.querySelector("img").src;
+    const id = this.querySelector("section").parentElement.id;
+    const popupTitle = document.querySelector("#popup-title");
+    const popupText = document.querySelector("#popup-text");
+    const popupImg = document.querySelector("#popup-img");
+    const popupContent = document.querySelector("#popup-content");
+    popupTitle.textContent = h1;
+    popupText.textContent = text;
+    popupContent.innerHTML=ReadFile(`text/${id}.html`);
+    popupImg.src = img;
 
-
-
+    popupWindow.style.height = "90%";
+    popupBGfade.style.display = "block";
+    setTimeout(function () {
+        popupBGfade.style.backdropFilter = "blur(6px)";
+        popupBGfade.style.WebkitBackdropFilter = "blur(6px)";
+        body.style.position="fixed";
+    }, 500)
+}
+popups.forEach(a => a.addEventListener("click", BuildPopup));
+popupCloseBtn.addEventListener("click", () => {
+    popupWindow.style.height = "0";
+    popupBGfade.style.display = "none";
+    popupBGfade.style.backdropFilter = "";
+    popupBGfade.style.WebkitBackdropFilter = "";
+    body.style.position="unset";
+});
+popupBGfade.addEventListener("click", () => {
+    popupWindow.style.height = "0";
+    popupBGfade.style.display = "none";
+    popupBGfade.style.backdropFilter = "";
+    popupBGfade.style.WebkitBackdropFilter = "";
+    body.style.position="unset";
+});
+//file reader
+function ReadFile(fileName){
+    var fileText="";
+    var rawFile = new XMLHttpRequest();
+    rawFile.open("GET", fileName, false);
+    rawFile.onreadystatechange = function ()
+    {
+        if(rawFile.readyState === 4)
+        {
+            if(rawFile.status === 200 || rawFile.status == 0)
+            {
+                fileText = rawFile.response;
+            }
+        }
+    }
+    rawFile.send(null);
+    return fileText;
+}
+//img viewer
