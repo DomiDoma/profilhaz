@@ -93,8 +93,7 @@ function CheckCurrentSP() {
     const currentScrollPos = window.pageYOffset;
     if (currentScrollPos < 2000) {
         if (window.innerWidth < 600) topBtn.style.top = "110%";
-        else
-            topBtn.style.top = "-2rem";
+        else topBtn.style.top = "-2rem";
     }
     else {
         if (window.innerWidth < 600) {
@@ -167,7 +166,10 @@ function BuildPopup() {
     setTimeout(function () {
         popupBGfade.style.backdropFilter = "blur(6px)";
         popupBGfade.style.WebkitBackdropFilter = "blur(6px)";
+        currentSP = window.pageYOffset;
         body.style.position="fixed";
+        body.style.top = `-${currentSP}px`;
+        html.style.scrollBehavior = "unset";
     }, 500)
 }
 popups.forEach(a => a.addEventListener("click", BuildPopup));
@@ -177,6 +179,8 @@ popupCloseBtn.addEventListener("click", () => {
     popupBGfade.style.backdropFilter = "";
     popupBGfade.style.WebkitBackdropFilter = "";
     body.style.position="unset";
+    window.scrollTo(0, currentSP);
+        html.style.scrollBehavior = "smooth";
 });
 popupBGfade.addEventListener("click", () => {
     popupWindow.style.height = "0";
@@ -184,6 +188,8 @@ popupBGfade.addEventListener("click", () => {
     popupBGfade.style.backdropFilter = "";
     popupBGfade.style.WebkitBackdropFilter = "";
     body.style.position="unset";
+    window.scrollTo(0, currentSP);
+        html.style.scrollBehavior = "smooth";
 });
 //file reader
 function ReadFile(fileName){
