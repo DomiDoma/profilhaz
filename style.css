@@ -54,7 +54,6 @@ body{
     font-family: Arial, Helvetica, sans-serif;
     font-weight: lighter;
     padding-top: 3rem;
-    height: 1000vh;
 }
 p{
     margin: 0.5rem;
@@ -156,7 +155,7 @@ img{
     margin: 1rem;
 }
 #close-button{
-    position: fixed;
+    position: absolute;
     top: 0.5rem;
     right: 0.5rem;
     color: var(--baseColor);
