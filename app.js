@@ -9,7 +9,7 @@
         const active = a;
         const { offsetX: x, offsetY: y } = e,
             { offsetWidth: width, offsetHeight: height } = a,
-            move = 10,
+            move = 20,
             xMove = x / width * (move * 2) - move,
             yMove = y / height * (move * 2) - move;
         text.style.transform = `translate(${xMove}px, ${yMove}px)`;
@@ -195,7 +195,7 @@ function BuildPopup(a) {
 }
 function RemovePopup() {
     popupWindow.style.height = "0";
-    popupWindow.style.transform = "translate(-50%,-50%) scale(0.9)";
+    popupWindow.style.transform = "translate(-50%,-50%) scale(0.8)";
     popupBGfade.style.opacity = "0";
     setTimeout(function () {
         body.removeChild(popupBGfade);
