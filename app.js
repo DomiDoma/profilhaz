@@ -82,9 +82,10 @@ else {
 var prevScrollpos = window.pageYOffset;
 const header = document.querySelector("header");
 const topBtn = document.querySelector(".toTopBtn");
-window.onscroll = function () {
+window.addEventListener("scroll", e => CheckHeader());
+window.addEventListener("resize", e => CheckHeader());
+function CheckHeader(){
     var currentScrollPos = window.pageYOffset;
-    CheckCurrentSP();
     if (prevScrollpos > 0 && prevScrollpos < currentScrollPos) {
         if (window.innerWidth < 600) header.style.top = "-3rem";
     } else {
@@ -93,24 +94,21 @@ window.onscroll = function () {
     prevScrollpos = currentScrollPos;
 }
 //check currentscrollPos for topBtn position
-function CheckCurrentSP() {
+window.addEventListener("scroll", e=> CheckCurrentSP());
+function CheckCurrentSP(){
     const currentScrollPos = window.pageYOffset;
     if (currentScrollPos < 2000) {
-        if (window.innerWidth < 600) topBtn.style.top = "110%";
-        else topBtn.style.top = "-2rem";
+        topBtn.style.top = "-2rem";
     }
     else {
-        if (window.innerWidth < 600) {
-            topBtn.style.top = "95%";
-            topBtn.style.left = "20%";
+        if(window.innerWidth<600){
+            topBtn.style.top="0.5rem"
         }
         else if (window.innerWidth < 750) {
             topBtn.style.top = "3.5rem";
-            topBtn.style.left = "";
         }
         else {
-            topBtn.style.top = "0.7rem";
-            topBtn.style.left = "";
+            topBtn.style.top = "0.5rem";
         }
     }
 }
