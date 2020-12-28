@@ -2,17 +2,17 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    border: 0px solid rgb(88, 0, 0);
+    border: 1px solid rgb(88, 0, 0);
 }
 html{
     scroll-behavior: smooth;
     -webkit-scroll-behavior: smooth;
     overflow: overlay;
 }
-
 :root{
     --baseColor: rgb(255, 255, 255);
     --baseColorInvert: rgb(0, 0, 0);
+    --cubicBezier: cubic-bezier(0,1,.25,1);
 }
 
 :any-link{
@@ -23,12 +23,23 @@ main{
     width: 95%;
     margin: 1rem auto;
     display: flex;
-    justify-content: space-evenly;
     flex-wrap: wrap;
+    flex: 1;
+}
+section{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.row{
+    display: flex;
+    justify-content: center;
+    width: 100%;
 }
 body{
     background-size: cover;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.8) 20%,rgba(0, 0, 0,0), rgba(0, 0, 0, 0.8)),url("background.jpg");
+    background-image: linear-gradient(rgba(0, 0, 0, 0.8) 20%,rgba(0, 0, 0,0), rgba(0, 0, 0, 0.8)),url("images/background.jpg");
     background-attachment: fixed;
     color: white;
     font-family: Arial, Helvetica, sans-serif;
@@ -45,6 +56,11 @@ h1{
     font-weight: 900;
     opacity: .8;
 }
+h2{
+    font-size: 2rem;
+    font-weight: 900;
+    opacity: .8;
+}
 li{
     margin-left: 2rem;
 }
@@ -53,14 +69,14 @@ li{
     border-radius: 1rem;
 }
 ::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.877);
+    background: rgba(218, 218, 218, 0.5);
     border-radius: 1rem;
     margin: 3rem;
     border: 4px solid transparent;
     background-clip: content-box;
 }
 ::-webkit-scrollbar-thumb {
-    background-color: rgb(126, 126, 126);
+    background-color: rgb(68, 68, 68);
     border-radius: 1rem;
     width: 0.6rem;
     border: 4px solid transparent;
@@ -69,7 +85,7 @@ li{
 ::-webkit-scrollbar-thumb:hover {
     border: 2px solid transparent;
 }
-/*sample images*/
+/*IMAGES*/
 .sample{
     width: 50%;
     margin: 1rem auto;
@@ -78,30 +94,17 @@ li{
 :focus{
     outline: none;
 }
-.img-viewer{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 20;
-    border-radius: 1rem;
-    min-width: 15rem;
-    transition: 0.5s cubic-bezier(1,.1,.17,1.19);
-    background-image: none;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-.viewable{
-    cursor: pointer;
-}
 img{
     max-width: 90%;
 }
+.profile-img{
+    width: 6rem;
+    border-radius: 50%;
+    shape-outside: circle();
+    margin: 0.5rem;
+    float: left;
+}
+
 /*popup*/
 .popup{
     cursor: pointer;
@@ -110,7 +113,7 @@ img{
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%) scale(0.9);
     width: 80%;
     height: 0;
     min-width: 15rem;
@@ -121,7 +124,7 @@ img{
     z-index: 10;
     overflow-y: auto;
     overflow-x: hidden;
-    transition: 0.5s cubic-bezier(1,.1,.17,1.19);
+    transition: all 0.5s var(--cubicBezier);
 }
 #popup-header{
     position: sticky;
@@ -163,7 +166,7 @@ img{
     position: absolute;
 }
 #close-button:hover{
-    transform: scale(1.2) rotate(180deg);
+    transform: scale(1.2) rotate(90deg);
 }
 #popup-bgfade{
     position: fixed;
@@ -171,17 +174,19 @@ img{
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgb(0, 0, 0);
+    opacity: 0;
     z-index: 9;
+    transition: all 0.3s ease;
     display: none;
-    transition: 1s;
 }
 
 .hint{
     color: gray;
     margin: 0 auto;
+    font-size: 0.8rem;
 }
-.card{/*container of the .card*/
+.card{/*container of the .card-content*/
     min-width: 15rem;
     max-width: 40%;
     display: flex;
@@ -198,20 +203,29 @@ img{
     padding: 0.5rem;
     border-radius: 1rem;
 }
+.card-content2{/*only usable with .card*/
+    background-color: var(--baseColor);
+    color: var(--baseColorInvert);
+    padding: 0.5rem;
+    border-radius: 1rem;
+}
+.card-content2 h2{
+    pointer-events: none;
+}
 .hoverE{
     transition: transform 1s cubic-bezier(.03,.31,.1,.95);
     transform-style: preserve-3d;
 }
 .hoverE:hover{
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
 }
-.hoverE:hover h2{
+.hoverE:hover h3{
     transform: translateZ(4rem) translate(-50%, 80%);
 }
 
-.hoverE h2{
+.hoverE h3{
     position: absolute;
     color: var(--baseColor);
+    font-size: 1.5rem;
     text-shadow: 0 5px 10px black;
     top: -1rem;
     left: 50%;
@@ -232,20 +246,6 @@ header{
     z-index: 8;
     overflow: hidden;
     transition: all 0.2s ease-in-out;
-}
-.switchAnimation{
-    background-color: var(--baseColorInvert);
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 20;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
-    transition: all 0.3s ease-in;
-    pointer-events: none;
 }
 .intro{
     background-color: var(--baseColor);
@@ -371,7 +371,7 @@ nav{
     height: 0%;
     overflow: hidden;
     background-color: var(--baseColorInvert);
-    transition: 0.5s cubic-bezier(1,.1,.17,1.19);
+    transition: all 0.5s var(--cubicBezier);
 }
 .sideMenuBackground{
     background-color: black;
@@ -380,7 +380,7 @@ nav{
     width: 100%;
     height: 100%;
     z-index: 9;
-    transition: 0.5s cubic-bezier(1,.1,.17,1.19);
+    transition: 0.5s var(--cubicBezier);
     opacity: 0;
     pointer-events: none;
 }
@@ -407,13 +407,17 @@ nav{
     #moreBtn{
         display: block;
     }
+    main{
+        justify-content: center;
+    }
     .card{
-        min-width: 100%;
+        max-width: 100%;
+        margin: 2rem 0;
     }
     .hoverE:hover{
         transform: none;
     }
-    .hoverE:hover h2{
+    .hoverE:hover h3{
         transform: translateY(0) translateZ(0) translateX(-50%);
     }
     .sideMenu{

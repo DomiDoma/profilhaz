@@ -41,7 +41,12 @@ const HoverEffect = function (e, a) {
         const width = card.clientWidth
         let x = 10 * ((xMove - width / 2) / width);
         let y = -10 * ((yMove - height / 2) / height);
-        card.style.transform = `perspective(500px) rotateY(${x}deg) rotateX(${y}deg) scale(1.1)`;
+        if (a.id == "hoverB") {
+            card.style.transform = ` perspective(30px) rotateY(${x}deg) rotateX(${y}deg) scale(1.1)`;
+        }
+        if (a.id != "hoverB") {
+            card.style.transform = ` perspective(500px) rotateY(${x}deg) rotateX(${y}deg) scale(1.1)`;
+        }
         card.style.transition = "";
         if (e.type == "mouseleave") {
             card.style.transform = `rotateY(0deg) rotateX(0deg)`;
@@ -73,16 +78,6 @@ else {
     intro.style.display = "none";
     body.style.position = "unset";
 }
-//page switching animation
-const div = document.querySelector(".switchAnimation");
-window.addEventListener("load", () => {
-    const div = document.createElement("div");
-    div.classList.add("switchAnimation");
-    document.body.appendChild(div);
-    setTimeout(function () {
-        div.style.transform = "translateY(-100%)";
-    }, 100)
-})
 //hide header with scrolling
 var prevScrollpos = window.pageYOffset;
 const header = document.querySelector("header");
@@ -90,10 +85,10 @@ const topBtn = document.querySelector(".toTopBtn");
 window.onscroll = function () {
     var currentScrollPos = window.pageYOffset;
     CheckCurrentSP();
-    if (prevScrollpos < currentScrollPos) {
-        if(window.innerWidth<600) header.style.top = "-3rem";
+    if (prevScrollpos > 0 && prevScrollpos < currentScrollPos) {
+        if (window.innerWidth < 600) header.style.top = "-3rem";
     } else {
-        if(window.innerWidth<600) header.style.top = "0";
+        if (window.innerWidth < 600) header.style.top = "0";
     }
     prevScrollpos = currentScrollPos;
 }
@@ -153,54 +148,66 @@ function hideSideMenu(e) {
 }
 //popup
 const popups = document.querySelectorAll(".popup");
-const popupWindow = document.querySelector("#popup-window");
-const popupCloseBtn = document.querySelector("#close-button");
-const popupBGfade = document.querySelector("#popup-bgfade");
-function BuildPopup() {
-    const h1 = this.querySelector("h2").textContent;
-    const text = this.querySelector("p").textContent;
-    const img = this.querySelector("img").src;
-    const id = this.querySelector("section").parentElement.id;
-    const popupTitle = document.querySelector("#popup-title");
-    const popupText = document.querySelector("#popup-text");
-    const popupImg = document.querySelector("#popup-img");
-    const popupContent = document.querySelector("#popup-content");
-    popupTitle.textContent = h1;
-    popupText.textContent = text;
-    popupContent.innerHTML = ReadFile(`text/${id}.html`);
-    popupImg.src = img;
 
-    popupWindow.style.height = "90%";
-    popupBGfade.style.display = "block";
-    popupWindow.focus();
+const popupWindow = document.createElement("div");
+popupWindow.tabIndex = "-1";
+popupWindow.id = "popup-window";
+const popupHeader = document.createElement("span");
+popupHeader.id = "popup-header";
+const popupCloseBtn = document.createElement("span");
+popupCloseBtn.id = "close-button";
+const closeBtnSpan = document.createElement("span");
+const popupTitle = document.createElement("h1");
+popupTitle.id = "popup-title";
+const popupText = document.createElement("p");
+popupText.id = "popup-text";
+const popupImg = document.createElement("img");
+popupImg.id = "popup-img";
+popupImg.classList.add("sample");
+const popupContent = document.createElement("span");
+popupContent.id = "popup-content";
+const popupBGfade = document.createElement("div");
+popupBGfade.id = "popup-bgfade";
+
+function BuildPopup(a) {
+    body.appendChild(popupWindow).appendChild(popupHeader).appendChild(popupCloseBtn).appendChild(closeBtnSpan);
+    popupHeader.appendChild(popupTitle);
+    popupWindow.appendChild(popupText);
+    popupWindow.appendChild(popupImg);
+    popupWindow.appendChild(popupContent);
+    body.appendChild(popupBGfade);
     setTimeout(function () {
-        popupBGfade.style.backdropFilter = "blur(6px)";
-        popupBGfade.style.WebkitBackdropFilter = "blur(6px)";
+        popupWindow.style.height = "90%";
+        popupTitle.textContent = a.querySelector("h3").textContent;
+        popupText.textContent = a.querySelector("p").textContent;
+        closeBtnSpan.innerHTML = "&times;";
+        popupImg.src = a.querySelector("img").src;
+        popupContent.innerHTML = ReadFile(`text/${a.id}.html`);
+        popupWindow.style.transform = "translate(-50%,-50%) scale(1)";
+        popupBGfade.style.display = "block";
+        popupWindow.focus();
         currentSP = window.pageYOffset;
         body.style.position = "fixed";
         body.style.top = `-${currentSP}px`;
+        popupBGfade.style.opacity = "0.7";
         html.style.scrollBehavior = "unset";
-    }, 500)
+    }, 100)
 }
-popups.forEach(a => a.addEventListener("click", BuildPopup));
-popupCloseBtn.addEventListener("click", () => {
+function RemovePopup() {
     popupWindow.style.height = "0";
-    popupBGfade.style.display = "none";
-    popupBGfade.style.backdropFilter = "";
-    popupBGfade.style.WebkitBackdropFilter = "";
+    popupWindow.style.transform = "translate(-50%,-50%) scale(0.9)";
+    popupBGfade.style.opacity = "0";
+    setTimeout(function () {
+        body.removeChild(popupBGfade);
+        body.removeChild(popupWindow);
+    }, 500)
     body.style.position = "unset";
     window.scrollTo(0, currentSP);
     html.style.scrollBehavior = "smooth";
-});
-popupBGfade.addEventListener("click", () => {
-    popupWindow.style.height = "0";
-    popupBGfade.style.display = "none";
-    popupBGfade.style.backdropFilter = "";
-    popupBGfade.style.WebkitBackdropFilter = "";
-    body.style.position = "unset";
-    window.scrollTo(0, currentSP);
-    html.style.scrollBehavior = "smooth";
-});
+}
+popups.forEach(a => a.addEventListener("click", e => BuildPopup(a)));
+popupCloseBtn.addEventListener("click", () => RemovePopup());
+popupBGfade.addEventListener("click", () => RemovePopup());
 //file reader
 function ReadFile(fileName) {
     var fileText = "";
@@ -215,29 +222,4 @@ function ReadFile(fileName) {
     }
     rawFile.send(null);
     return fileText;
-}
-//img viewer
-document.querySelectorAll('.viewable').forEach(a => {
-    a.addEventListener('click', e => {
-        Hehe(a)
-    })
-})
-function Hehe(a) {
-    const imgContainer = document.createElement("div");
-    const closeBtn = document.createElement("span");
-    const span = document.createElement("span");
-    imgContainer.classList.add("img-viewer");
-    closeBtn.classList.add("#close-button");
-    imgContainer.style.backgroundImage = `url(${a.src})`
-    body.appendChild(imgContainer);
-    closeBtn.id = "close-button";
-    closeBtn.classList.add("navLink");
-    span.innerHTML = "&times;";
-    closeBtn.addEventListener("click", () => {
-        body.removeChild(imgContainer);
-    });
-    imgContainer.addEventListener("click", () => {
-        body.removeChild(imgContainer);
-    });
-    imgContainer.appendChild(closeBtn).appendChild(span);
 }
