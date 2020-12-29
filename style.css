@@ -423,23 +423,23 @@ nav{
     .sideMenu{
         border: 1px solid black;
     }
+    .evently{
+        flex-direction: column;
+    }
 }
 @media(max-width: 600px), (pointer: coarse){
+    .row{
+        flex-direction: column;
+    }
     #popup-window{
         min-width: 100%;
     }
     main{
         justify-content: center;
     }
-    .row{
-        flex-direction: column;
-    }
-    .evently{
-        flex-direction: column;
-    }
     .card{
         max-width: 100%;
-        margin: 2rem 0;
+        margin: 2rem 0.5rem;
     }
     .hoverE:hover{
         transform: none;
@@ -450,5 +450,4 @@ nav{
     h1{
         font-size: 2rem;
     }
-    
 }

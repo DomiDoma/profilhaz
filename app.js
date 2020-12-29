@@ -33,7 +33,7 @@
 //hoverEffect
 const cards = document.querySelectorAll(".hoverE");
 const HoverEffect = function (e, a) {
-    if (window.innerWidth > 600) {
+    if (window.innerWidth > 600 && !window.matchMedia('(pointer: coarse)').matches) {
         const card = a;
         const xMove = e.layerX
         const yMove = e.layerY
@@ -97,7 +97,7 @@ function CheckHeader(){
 window.addEventListener("scroll", e=> CheckCurrentSP());
 function CheckCurrentSP(){
     const currentScrollPos = window.pageYOffset;
-    if (currentScrollPos < 2000) {
+    if (currentScrollPos < 1000) {
         topBtn.style.top = "-2rem";
     }
     else {
