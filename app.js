@@ -182,7 +182,6 @@ function BuildPopup(a) {
         popupImg.src = a.querySelector("img").src;
         popupContent.innerHTML = ReadFile(`text/${a.id}.html`);
         popupWindow.style.transform = "translate(-50%,-50%) scale(1)";
-        popupWindow.style.top = "50%";
         popupBGfade.style.display = "block";
         popupWindow.focus();
         currentSP = window.pageYOffset;
@@ -194,7 +193,6 @@ function BuildPopup(a) {
 }
 function RemovePopup() {
     popupWindow.style.height = "0";
-    popupWindow.style.top = "100%";
     popupWindow.style.transform = "translate(-50%,-50%) scale(0.8)";
     popupBGfade.style.opacity = "0";
     setTimeout(function () {
