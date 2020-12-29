@@ -125,7 +125,7 @@ img{
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%) scale(0.8);
+    transform: translate(-50%,-50%);
     width: 80%;
     height: 0;
     min-width: 15rem;
@@ -433,7 +433,6 @@ nav{
     }
     #popup-window{
         min-width: 100%;
-        transform: translate(-50%,-50%) scale(1);
     }
     main{
         justify-content: center;
