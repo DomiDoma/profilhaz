@@ -433,6 +433,7 @@ nav{
     }
     #popup-window{
         min-width: 100%;
+        transform: translate(-50%,-50%) scale(1);
     }
     main{
         justify-content: center;

@@ -175,14 +175,19 @@ function BuildPopup(a) {
     popupWindow.appendChild(popupContent);
     body.appendChild(popupBGfade);
     setTimeout(function () {
-        popupWindow.style.height = "90%";
         popupTitle.textContent = a.querySelector("h3").textContent;
         popupText.textContent = a.querySelector("p").textContent;
         closeBtnSpan.innerHTML = "&times;";
         popupImg.src = a.querySelector("img").src;
         popupContent.innerHTML = ReadFile(`text/${a.id}.html`);
-        popupWindow.style.transform = "translate(-50%,-50%) scale(1)";
         popupBGfade.style.display = "block";
+        if(!window.matchMedia('(pointer: coarse)').matches){
+            popupWindow.style.transform = "translate(-50%,-50%) scale(1)";
+            popupWindow.style.height = "90%";
+        }
+        else{
+            popupWindow.style.height = "90%";
+        }
         popupWindow.focus();
         currentSP = window.pageYOffset;
         body.style.position = "fixed";
@@ -192,8 +197,13 @@ function BuildPopup(a) {
     }, 100)
 }
 function RemovePopup() {
-    popupWindow.style.height = "0";
-    popupWindow.style.transform = "translate(-50%,-50%) scale(0.8)";
+    if(!window.matchMedia('(pointer: coarse)').matches){
+        popupWindow.style.height = "0";
+        popupWindow.style.transform = "translate(-50%,-50%) scale(1)";
+    }
+    else{
+        popupWindow.style.height = "0";
+    }
     popupBGfade.style.opacity = "0";
     setTimeout(function () {
         body.removeChild(popupBGfade);
