@@ -81,7 +81,6 @@ else {
 //hide header with scrolling
 var prevScrollpos = window.pageYOffset;
 const header = document.querySelector("header");
-const topBtn = document.querySelector(".toTopBtn");
 window.addEventListener("scroll", e => CheckHeader());
 window.addEventListener("resize", e => CheckHeader());
 function CheckHeader() {
@@ -94,6 +93,7 @@ function CheckHeader() {
     prevScrollpos = currentScrollPos;
 }
 //check currentscrollPos for topBtn position
+const topBtn = document.querySelector(".toTopBtn");
 window.addEventListener("scroll", e => CheckCurrentSP());
 function CheckCurrentSP() {
     const currentScrollPos = window.pageYOffset;
@@ -102,13 +102,13 @@ function CheckCurrentSP() {
     }
     else {
         if (window.innerWidth < 600) {
-            topBtn.style.top = "0.5rem"
+            topBtn.style.top = "0.65rem"
         }
         else if (window.innerWidth < 750) {
             topBtn.style.top = "3.5rem";
         }
         else {
-            topBtn.style.top = "0.5rem";
+            topBtn.style.top = "0.55rem";
         }
     }
 }
