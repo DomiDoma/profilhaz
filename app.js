@@ -41,11 +41,11 @@ const HoverEffect = function (e, a) {
         const width = card.clientWidth
         let x = 10 * ((xMove - width / 2) / width);
         let y = -10 * ((yMove - height / 2) / height);
-        if (a.id == "hoverB") {
+        if (card.classList.contains("hoverB")) {
             card.style.transform = ` perspective(30px) rotateY(${x}deg) rotateX(${y}deg) scale(1.1)`;
         }
-        if (a.id != "hoverB") {
-            card.style.transform = ` perspective(500px) rotateY(${x}deg) rotateX(${y}deg) scale(1.1)`;
+        else{
+        card.style.transform = ` perspective(500px) rotateY(${x}deg) rotateX(${y}deg) scale(1.1)`;
         }
         card.style.transition = "";
         if (e.type == "mouseleave") {
@@ -83,6 +83,7 @@ var prevScrollpos = window.pageYOffset;
 const header = document.querySelector("header");
 window.addEventListener("scroll", e => CheckHeader());
 window.addEventListener("resize", e => CheckHeader());
+window.addEventListener("orientationchange", e => CheckHeader());
 function CheckHeader() {
     var currentScrollPos = window.pageYOffset;
     if (prevScrollpos > 0 && prevScrollpos < currentScrollPos) {
@@ -188,7 +189,7 @@ function BuildPopup(a) {
         body.style.top = `-${currentSP}px`;
         popupBGfade.style.opacity = "0.7";
         html.style.scrollBehavior = "unset";
-    }, 100)
+    }, 50)
 }
 function RemovePopup() {
     popupWindow.style.height = "0";
@@ -219,3 +220,4 @@ function ReadFile(fileName) {
     rawFile.send(null);
     return fileText;
 }
+//img viewer

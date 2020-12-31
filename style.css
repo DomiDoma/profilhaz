@@ -2,7 +2,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    border: 0px solid rgb(88, 0, 0);
+    border: 1px solid rgb(88, 0, 0);
     scrollbar-width: thin;/*firefox*/
 }
 html{
@@ -33,16 +33,12 @@ section{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    flex-wrap: wrap;
-}
-.row{
-    display: flex;
-    justify-content: center;
-    width: 100%;
 }
 .evently{
     display: flex;
-    justify-content: space-around;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-evenly;
 }
 .contact a{
     text-decoration: underline;
@@ -119,7 +115,12 @@ img{
     margin: 0.5rem;
     float: left;
 }
-
+.gallery img{
+    min-width: 10rem;
+    max-width: 20%;
+    margin: 1rem 0.5rem;
+    border-radius: 1rem;
+}
 /*popup*/
 .popup{
     cursor: pointer;
@@ -201,30 +202,16 @@ img{
     margin: 0 auto;
     font-size: 0.8rem;
 }
-.card{/*container of the .card-content*/
-    min-width: 15rem;
+.card{
+    min-width: 20rem;
     max-width: 40%;
-    display: flex;
-    justify-content: center;
-    margin: 2rem;
-    flex-wrap: wrap;
-    flex: 1;
-}
-.card-content{/*only usable with .card*/
-    display: flex;
-    flex-direction: column;
+    margin: 1.5rem;
     background-color: var(--baseColor);
     color: var(--baseColorInvert);
     padding: 0.5rem;
     border-radius: 1rem;
 }
-.card-content2{/*only usable with .card*/
-    background-color: var(--baseColor);
-    color: var(--baseColorInvert);
-    padding: 0.5rem;
-    border-radius: 1rem;
-}
-.card-content2 h2{
+.card h2{
     pointer-events: none;
 }
 .hoverE{
@@ -436,23 +423,16 @@ nav{
     .sideMenu{
         border: 1px solid black;
     }
-    .evently{
-        flex-direction: column;
+    .card{
+        max-width: 100%;
     }
 }
 @media(max-width: 600px), (pointer: coarse){
-    .row{
-        flex-direction: column;
-    }
     #popup-window{
         min-width: 100%;
     }
     main{
         justify-content: center;
-    }
-    .card{
-        max-width: 100%;
-        margin: 2rem 0.5rem;
     }
     .hoverE:hover{
         transform: none;
@@ -468,7 +448,7 @@ nav{
     .outdated{
         display: block;
     }
-    body *:not(.outdated){
+    main{
         display: none;
     }
   }
