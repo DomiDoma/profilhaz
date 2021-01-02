@@ -2,7 +2,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    border: 0px solid rgb(88, 0, 0);
+    border: 1px solid rgb(88, 0, 0);
     scrollbar-width: thin;/*firefox*/
 }
 html{
@@ -23,7 +23,7 @@ html{
     color: white;
 }
 main{
-    width: 95%;
+    width: 80%;
     margin: 1rem auto;
     display: flex;
     flex-wrap: wrap;
@@ -47,7 +47,7 @@ section{
 }
 body{
     background-size: cover;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.8) 20%,rgba(0, 0, 0,0), rgba(0, 0, 0, 0.8)),url("images/background.jpg");
+    background-image: linear-gradient(rgba(0, 0, 0, 0.8) 20%,rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.8)),url("images/background.jpg");
     background-attachment: fixed;
     color: white;
     font-family: Arial, Helvetica, sans-serif;
@@ -114,10 +114,6 @@ img{
     margin: 0.5rem;
     float: left;
 }
-.gallery{
-    display: flex;
-    flex-direction: row!important;
-}
 .gallery img{
     min-width: 10rem;
     max-width: 20%;
@@ -183,6 +179,7 @@ img{
 }
 #popup-img-div{
     display: flex;
+    transition: transform 0.4s ease;
 }
 #popup-header{
     position: sticky;
@@ -460,6 +457,7 @@ nav{
     }
     .card{
         max-width: 100%;
+        margin: 1.5rem 0.5rem;
     }
 }
 @media(max-width: 600px), (pointer: coarse){
@@ -468,6 +466,10 @@ nav{
     }
     main{
         justify-content: center;
+        width: 95%;
+    }
+    body{
+        background: rgb(29, 29, 29);
     }
     .hoverE:hover{
         transform: none;

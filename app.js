@@ -42,10 +42,10 @@ const HoverEffect = function (e, a) {
         let x = 10 * ((xMove - width / 2) / width);
         let y = -10 * ((yMove - height / 2) / height);
         if (card.classList.contains("hoverB")) {
-            card.style.transform = ` perspective(30px) rotateY(${x}deg) rotateX(${y}deg) scale(1.1)`;
+            card.style.transform = `perspective(30px) rotateY(${x}deg) rotateX(${y}deg) scale(1.1)`;
         }
         else {
-            card.style.transform = ` perspective(500px) rotateY(${x}deg) rotateX(${y}deg) scale(1.1)`;
+            card.style.transform = `perspective(500px) rotateY(${x}deg) rotateX(${y}deg) scale(1.1)`;
         }
         card.style.transition = "";
         if (e.type == "mouseleave") {
@@ -177,6 +177,11 @@ function BuildPopup(a) {
     popupWindow.appendChild(popupImgDiv).appendChild(popupImg);
     popupWindow.appendChild(popupContent);
     body.appendChild(popupBGfade);
+    body.style.position = "fixed";
+    currentSP = window.pageYOffset;
+    body.style.top = `-${currentSP}px`;
+    popupBGfade.style.opacity = "0.7";
+    html.style.scrollBehavior = "unset";
     setTimeout(function () {
         popupTitle.textContent = a.querySelector("h3").textContent;
         popupText.textContent = a.querySelector("p").textContent;
@@ -186,11 +191,6 @@ function BuildPopup(a) {
         popupWindow.style.width = "80%";
         popupWindow.style.transform = "translate(-50%,-50%) scale(1)";
         popupWindow.focus();
-        currentSP = window.pageYOffset;
-        body.style.position = "fixed";
-        body.style.top = `-${currentSP}px`;
-        popupBGfade.style.opacity = "0.7";
-        html.style.scrollBehavior = "unset";
     }, 50)
 }
 function RemovePopup() {
@@ -245,22 +245,21 @@ function BuildImgViewer(a) {
     popupWindow.appendChild(nextBtn);
     popupWindow.appendChild(popupCloseBtn);
     popupWindow.appendChild(popupImgDiv);
-    let imgIndex = 0;
-    let imgWidth=0;
+    let imgIndex = a.id;
+    let imgWidth=document.querySelector("#popup-img-div img").clientWidth;
+    popupImgDiv.style.transform="none";
+    popupImgDiv.style.transform=`translateX(${-imgWidth * imgIndex}px)`;
     nextBtn.addEventListener("click", ()=>{
         if(imgIndex >= imgs.length-1)return;
-        imgWidth=document.querySelector("#popup-img-div img").clientWidth;
-        imgHeight=document.querySelector("#popup-img-div img").clientHeight;
         imgIndex++;
+        imgWidth=document.querySelector("#popup-img-div img").clientWidth;
         popupImgDiv.style.transform=`translateX(${-imgWidth * imgIndex}px)`;
-        popupImgDiv.style.transition="transform 0.4s ease";
     });
     prevBtn.addEventListener("click", ()=>{
         if(imgIndex <=0 )return;
-        imgWidth=document.querySelector("#popup-img-div img").clientWidth;
         imgIndex--;
+        imgWidth=document.querySelector("#popup-img-div img").clientWidth;
         popupImgDiv.style.transform=`translateX(${-imgWidth * imgIndex}px)`;
-        popupImgDiv.style.transition="transform 0.4s ease";
     });
     setTimeout(function () {
         popupWindow.style.maxHeight = "90%";
