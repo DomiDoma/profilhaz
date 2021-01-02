@@ -2,7 +2,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    border: 1px solid rgb(88, 0, 0);
+    border: 0px solid rgb(88, 0, 0);
     scrollbar-width: thin;/*firefox*/
 }
 html{
@@ -115,11 +115,51 @@ img{
     margin: 0.5rem;
     float: left;
 }
+.gallery{
+    display: flex;
+    flex-direction: row!important;
+}
 .gallery img{
     min-width: 10rem;
     max-width: 20%;
     margin: 1rem 0.5rem;
     border-radius: 1rem;
+    cursor: pointer;
+}
+#prev-button{
+    position: absolute;
+    bottom: 0.5rem;
+    left: 0.5rem;
+    color: var(--baseColor);
+    font-size: 2rem;
+    background-color: var(--baseColorInvert);
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 21;
+    cursor: pointer;
+    transition: 0.4s ease;
+
+}
+#next-button{
+    position: absolute;
+    bottom: 0.5rem;
+    right: 0.5rem;
+    color: var(--baseColor);
+    font-size: 2rem;
+    background-color: var(--baseColorInvert);
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 21;
+    cursor: pointer;
+    transition: 0.4s ease;
 }
 /*popup*/
 .popup{
@@ -129,10 +169,10 @@ img{
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);
-    width: 80%;
-    height: 0;
-    min-width: 15rem;
+    transform: translate(-50%,-50%) scale(0);
+    max-width: 60rem;
+    min-width: 20rem;
+    max-height: 90%;
     background-color: var(--baseColor);
     border-radius: 1rem;
     display: flex;
@@ -140,7 +180,10 @@ img{
     z-index: 10;
     overflow-y: auto;
     overflow-x: hidden;
-    transition: all 0.5s var(--cubicBezier);
+    transition: transform 0.5s var(--cubicBezier);
+}
+#popup-img-div{
+    display: flex;
 }
 #popup-header{
     position: sticky;
@@ -175,12 +218,6 @@ img{
     cursor: pointer;
     transition: 0.4s ease;
 }
-#close-button span{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-}
 #close-button:hover{
     transform: scale(1.2) rotate(90deg);
 }
@@ -194,7 +231,6 @@ img{
     opacity: 0;
     z-index: 9;
     transition: all 0.3s ease;
-    display: none;
 }
 
 .hint{
