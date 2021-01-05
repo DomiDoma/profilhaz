@@ -40,6 +40,12 @@ section{
     flex-direction: row;
     justify-content: space-evenly;
 }
+.evently-left{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: start;
+}
 .contact a{
     text-decoration: underline;
     margin: 0.5rem;
@@ -104,9 +110,6 @@ li{
 :focus{
     outline: none;
 }
-img{
-    max-width: 90%;
-}
 .profile-img{
     width: 6rem;
     border-radius: 50%;
@@ -115,15 +118,15 @@ img{
     float: left;
 }
 .gallery img{
-    min-width: 10rem;
+    min-width: 5rem;
     max-width: 20%;
-    margin: 1rem 0.5rem;
+    margin: 1rem 1rem;
     border-radius: 1rem;
     cursor: pointer;
 }
 #prev-button{
     position: absolute;
-    bottom: 0.5rem;
+    top: 50%;
     left: 0.5rem;
     color: var(--baseColor);
     font-size: 2rem;
@@ -141,7 +144,7 @@ img{
 }
 #next-button{
     position: absolute;
-    bottom: 0.5rem;
+    top: 50%;
     right: 0.5rem;
     color: var(--baseColor);
     font-size: 2rem;
@@ -164,10 +167,11 @@ img{
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%) scale(0);
+    transform: translate(-50%,-50%) scaleY(0);
     max-width: 60rem;
     min-width: 20rem;
     max-height: 90%;
+    width: 90%;
     background-color: var(--baseColor);
     border-radius: 1rem;
     display: flex;
@@ -177,9 +181,16 @@ img{
     overflow-x: hidden;
     transition: transform 0.5s var(--cubicBezier);
 }
-#popup-img-div{
+#popup-gallery{
     display: flex;
-    transition: transform 0.4s ease;
+    justify-content: start;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+#popup-gallery img{
+    height: 100%;
+    width: 100%;
 }
 #popup-header{
     position: sticky;
@@ -461,9 +472,6 @@ nav{
     }
 }
 @media(max-width: 600px), (pointer: coarse){
-    #popup-window{
-        min-width: 100%;
-    }
     main{
         justify-content: center;
         width: 95%;

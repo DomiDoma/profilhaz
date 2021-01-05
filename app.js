@@ -93,8 +93,12 @@ function CheckHeader() {
     }
     prevScrollpos = currentScrollPos;
 }
-//check currentscrollPos for topBtn position
-const topBtn = document.querySelector(".toTopBtn");
+//topBtn
+const topBtn = document.createElement("span");
+topBtn.classList.add("toTopBtn");
+topBtn.onclick=()=>window.location='#';
+topBtn.innerHTML="&#11165; 	&#129053; Az oldal tetejére"
+body.appendChild(topBtn);
 window.addEventListener("scroll", e => CheckCurrentSP());
 function CheckCurrentSP() {
     const currentScrollPos = window.pageYOffset;
@@ -145,68 +149,6 @@ function hideSideMenu(e) {
     }
     CheckCurrentSP();
 }
-//popup
-const popups = document.querySelectorAll(".popup");
-
-const popupWindow = document.createElement("div");
-popupWindow.tabIndex = "-1";
-popupWindow.id = "popup-window";
-const popupHeader = document.createElement("span");
-popupHeader.id = "popup-header";
-const popupCloseBtn = document.createElement("span");
-popupCloseBtn.id = "close-button";
-popupCloseBtn.innerHTML = "&times;";
-const popupTitle = document.createElement("h1");
-popupTitle.id = "popup-title";
-const popupText = document.createElement("p");
-popupText.id = "popup-text";
-const popupImgDiv = document.createElement("div");
-popupImgDiv.id = "popup-img-div";
-const popupImg = document.createElement("img");
-popupImg.id = "popup-img";
-popupImg.classList.add("sample");
-const popupContent = document.createElement("span");
-popupContent.id = "popup-content";
-const popupBGfade = document.createElement("div");
-popupBGfade.id = "popup-bgfade";
-
-function BuildPopup(a) {
-    body.appendChild(popupWindow).appendChild(popupHeader).appendChild(popupCloseBtn);
-    popupHeader.appendChild(popupTitle);
-    popupWindow.appendChild(popupText);
-    popupWindow.appendChild(popupImgDiv).appendChild(popupImg);
-    popupWindow.appendChild(popupContent);
-    body.appendChild(popupBGfade);
-    body.style.position = "fixed";
-    currentSP = window.pageYOffset;
-    body.style.top = `-${currentSP}px`;
-    popupBGfade.style.opacity = "0.7";
-    html.style.scrollBehavior = "unset";
-    setTimeout(function () {
-        popupTitle.textContent = a.querySelector("h3").textContent;
-        popupText.textContent = a.querySelector("p").textContent;
-        popupImg.src = a.querySelector("img").src;
-        popupContent.innerHTML = ReadFile(`text/${a.id}.html`);
-        popupBGfade.style.display = "block";
-        popupWindow.style.width = "80%";
-        popupWindow.style.transform = "translate(-50%,-50%) scale(1)";
-        popupWindow.focus();
-    }, 50)
-}
-function RemovePopup() {
-    popupBGfade.style.opacity = "0";
-    popupWindow.style.transform = "translate(-50%,-50%) scale(0)";
-    setTimeout(function () {
-        body.removeChild(popupBGfade);
-        body.removeChild(popupWindow);
-    }, 500)
-    body.style.position = "unset";
-    window.scrollTo(0, currentSP);
-    html.style.scrollBehavior = "smooth";
-}
-popups.forEach(a => a.addEventListener("click", e => BuildPopup(a)));
-popupCloseBtn.addEventListener("click", () => RemovePopup());
-popupBGfade.addEventListener("click", () => RemovePopup());
 //file reader
 function ReadFile(fileName) {
     var fileText = "";
@@ -222,56 +164,140 @@ function ReadFile(fileName) {
     rawFile.send(null);
     return fileText;
 }
-//img viewer
-const imgs = document.querySelector(".gallery").querySelectorAll("img");
-imgs.forEach(a => a.addEventListener("click", e => BuildImgViewer(a)));
+//popup elements
+const popupWindow = document.createElement("div");
+popupWindow.tabIndex = "-1";
+popupWindow.id = "popup-window";
+const popupHeader = document.createElement("span");
+popupHeader.id = "popup-header";
+const popupCloseBtn = document.createElement("span");
+popupCloseBtn.id = "close-button";
+popupCloseBtn.innerHTML = "&times;";
+const popupTitle = document.createElement("h1");
+popupTitle.id = "popup-title";
+const popupText = document.createElement("p");
+popupText.id = "popup-text";
+const popupImgSample = document.createElement("img");
+popupImgSample.id="popup-img-sample";
+popupImgSample.classList.add("sample");
+const popupGallery = document.createElement("div");
+popupGallery.id = "popup-gallery";
+const popupContent = document.createElement("span");
+popupContent.id = "popup-content";
+const popupBGfade = document.createElement("div");
+popupBGfade.id = "popup-bgfade";
 const prevBtn = document.createElement("span");
-const nextBtn = document.createElement("span");
 prevBtn.id="prev-button";
 prevBtn.innerHTML="<";
+const nextBtn = document.createElement("span");
 nextBtn.id="next-button";
 nextBtn.innerHTML=">";
+const popupFigure = document.createElement("figure");
+//info popup
+function BuildPopup(a) {
+    body.appendChild(popupWindow).appendChild(popupHeader).appendChild(popupCloseBtn);
+    popupHeader.appendChild(popupTitle);
+    popupWindow.appendChild(popupText);
+    popupWindow.appendChild(popupImgSample);
+    popupWindow.appendChild(popupContent);
+    body.appendChild(popupBGfade);
+    
+    currentSP = window.pageYOffset;
+    body.style.position = "fixed";
+    body.style.top = `-${currentSP}px`;
+    html.style.scrollBehavior = "unset";
+    
+    setTimeout(function () {
+        popupTitle.textContent = a.querySelector("h3").textContent;
+        popupText.textContent = a.querySelector("p").textContent;
+        popupImgSample.src = a.querySelector("img").src;
+        popupContent.innerHTML = ReadFile(`text/${a.id}.html`);
+        popupBGfade.style.opacity = "0.7";
+        popupBGfade.style.display = "block";
+        popupWindow.style.width = "80%";
+        popupWindow.style.transform = "translate(-50%,-50%) scaleY(1)";
+        popupWindow.focus();
+    }, 50)
+}
+//remove popupwindow
+function RemovePopup() {
+    popupBGfade.style.opacity = "0";
+    popupWindow.style.transform = "translate(-50%,-50%) scaleY(0)";
+    body.style.position = "unset";
+    window.scrollTo(0, currentSP);
+    html.style.scrollBehavior = "smooth";
+    setTimeout(function () {
+        body.removeChild(popupBGfade);
+        body.removeChild(popupWindow);
+    }, 500)
+}
+const popup = document.querySelectorAll(".popup");
+popup.forEach(a => a.addEventListener("click", () => BuildPopup(a)));
+popupCloseBtn.addEventListener("click", () => RemovePopup());
+popupBGfade.addEventListener("click", () => RemovePopup());
+//img viewer
+const imgs = document.querySelector(".gallery").querySelectorAll("img");
 for(i=0; i<imgs.length;i++){
     const popupImg =document.createElement("img");
     popupImg.src = imgs[i].src;
-    popupImg.style.minWidth="100%";
-    popupImgDiv.appendChild(popupImg);
+    popupImg.id = "popup-img";
+    popupGallery.appendChild(popupImg);
 }
 function BuildImgViewer(a) {
-    popupBGfade.id = "popup-bgfade";
     body.appendChild(popupBGfade);
     body.appendChild(popupWindow);
     popupWindow.appendChild(prevBtn);
     popupWindow.appendChild(nextBtn);
-    popupWindow.appendChild(popupCloseBtn);
-    popupWindow.appendChild(popupImgDiv);
+    popupWindow.appendChild(popupCloseBtn)
+    popupWindow.appendChild(popupFigure);
+    popupFigure.appendChild(popupGallery);
+    
     let imgIndex = a.id;
-    let imgWidth=document.querySelector("#popup-img-div img").clientWidth;
-    popupImgDiv.style.transform="none";
-    popupImgDiv.style.transform=`translateX(${-imgWidth * imgIndex}px)`;
+    let imgWidth=document.querySelector("#popup-gallery img").clientWidth;
+    popupGallery.style.transition="none";
+    popupGallery.style.transform="none";
+    popupGallery.style.transform=`translateX(${-imgWidth * imgIndex}px)`;
+    
     nextBtn.addEventListener("click", ()=>{
         if(imgIndex >= imgs.length-1)return;
         imgIndex++;
-        imgWidth=document.querySelector("#popup-img-div img").clientWidth;
-        popupImgDiv.style.transform=`translateX(${-imgWidth * imgIndex}px)`;
+        imgWidth=document.querySelector("#popup-gallery img").clientWidth;
+        let imgHeight=document.querySelector("#popup-gallery img").clientHeight;
+        popupWindow.style.width = imgWidth+"px";
+        popupGallery.style.transform=`translateX(${-imgWidth * imgIndex}px)`;
+        popupGallery.style.transition="transform 0.4s ease";
     });
     prevBtn.addEventListener("click", ()=>{
         if(imgIndex <=0 )return;
         imgIndex--;
-        imgWidth=document.querySelector("#popup-img-div img").clientWidth;
-        popupImgDiv.style.transform=`translateX(${-imgWidth * imgIndex}px)`;
+        imgWidth=document.querySelector("#popup-gallery img").clientWidth;
+        let imgHeight=document.querySelector("#popup-gallery img").clientHeight;
+        popupWindow.style.width = imgWidth+"px";
+        popupGallery.style.transform=`translateX(${-imgWidth * imgIndex}px)`;
+        popupGallery.style.transition="transform 0.4s ease";
     });
+
+    currentSP = window.pageYOffset;
+    body.style.position = "fixed";
+    body.style.top = `-${currentSP}px`;
+    html.style.scrollBehavior = "unset";
+
     setTimeout(function () {
-        popupWindow.style.maxHeight = "90%";
-        popupWindow.style.width = "70rem";
-        popupWindow.style.maxWidth = "90%";
+        popupBGfade.style.opacity = "0.7";
+        popupBGfade.style.display = "block";
+        popupWindow.style.width = imgWidth+"px";
+        if(window.innerWidth<600){popupWindow.style.maxWidth = "100%";}
+        else if(window.innerHeight<300){popupWindow.style.maxWidth = "40%";}
+        else{ popupWindow.style.maxWidth = "80%";}
         popupWindow.style.transform = "translate(-50%,-50%) scaleY(1)";
         popupWindow.style.overflowY = "hidden";
         popupWindow.focus();
     }, 50)
-    currentSP = window.pageYOffset;
-    body.style.position = "fixed";
-    body.style.top = `-${currentSP}px`;
-    popupBGfade.style.opacity = "0.7";
-    html.style.scrollBehavior = "unset";
+    console.log("hello");
 }
+imgs.forEach(a => a.addEventListener("click", () => BuildImgViewer(a)));
+window.addEventListener("resize", ()=>{
+    popupWindow.style.height="unset";
+    popupWindow.style.width="unset";
+    RemovePopup();
+});
