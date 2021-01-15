@@ -59,6 +59,7 @@ body{
     font-family: Arial, Helvetica, sans-serif;
     font-weight: lighter;
     padding-top: 3rem;
+    height: 1000vh;
 }
 p{
     margin: 0.5rem;
@@ -126,38 +127,42 @@ li{
 }
 #prev-button{
     position: absolute;
-    top: 50%;
-    left: 0.5rem;
+    top: 0;
+    left: 0;
     color: var(--baseColor);
-    font-size: 2rem;
-    background-color: var(--baseColorInvert);
-    width: 2rem;
-    height: 2rem;
-    border-radius: 50%;
+    background: linear-gradient(90deg, rgba(0,0,0,0.5029717453387605) 0%, rgba(0,0,0,0) 50%);
+    font-size: 4rem;
+    width: 50%;
+    height: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+    padding: 1rem;
     z-index: 21;
     cursor: pointer;
     transition: 0.4s ease;
-
+    user-select: none;
 }
 #next-button{
     position: absolute;
-    top: 50%;
-    right: 0.5rem;
+    top: 0;
+    right: 0;
     color: var(--baseColor);
-    font-size: 2rem;
-    background-color: var(--baseColorInvert);
-    width: 2rem;
-    height: 2rem;
-    border-radius: 50%;
+    background: linear-gradient(-90deg, rgba(0,0,0,0.5029717453387605) 0%, rgba(0,0,0,0) 50%);
+    font-size: 4rem;
+    width: 50%;
+    height: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
+    padding: 1rem;
     z-index: 21;
     cursor: pointer;
     transition: 0.4s ease;
+    user-select: none;
+}
+#next-button:hover, #prev-button:hover{
+    font-size: 6rem;
 }
 /*popup*/
 .popup{
@@ -258,7 +263,7 @@ li{
     pointer-events: none;
 }
 .hoverE{
-    transition: transform 1s cubic-bezier(.03,.31,.1,.95);
+    transition: all 1s cubic-bezier(.03,.31,.1,.95);
     transform-style: preserve-3d;
 }
 .hoverE:hover{

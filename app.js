@@ -97,7 +97,7 @@ function CheckHeader() {
 const topBtn = document.createElement("span");
 topBtn.classList.add("toTopBtn");
 topBtn.onclick=()=>window.location='#';
-topBtn.innerHTML="&#11165; 	&#129053; Az oldal tetejére"
+topBtn.innerHTML="🠝 Az oldal tetejére"
 body.appendChild(topBtn);
 window.addEventListener("scroll", e => CheckCurrentSP());
 function CheckCurrentSP() {
@@ -123,7 +123,6 @@ const sidemenuBackground = document.querySelector(".sideMenuBackground");
 const moreBtn = document.querySelector("#moreBtn");
 const closeBtn = document.querySelector("#closeBtn");
 const html = document.querySelector("html");
-let currentSP = 0;
 
 moreBtn.addEventListener("click", () => {
     currentSP = window.pageYOffset;
@@ -188,10 +187,10 @@ const popupBGfade = document.createElement("div");
 popupBGfade.id = "popup-bgfade";
 const prevBtn = document.createElement("span");
 prevBtn.id="prev-button";
-prevBtn.innerHTML="<";
+prevBtn.innerHTML="🢐";
 const nextBtn = document.createElement("span");
 nextBtn.id="next-button";
-nextBtn.innerHTML=">";
+nextBtn.innerHTML="🢒";
 const popupFigure = document.createElement("figure");
 //info popup
 function BuildPopup(a) {
@@ -262,7 +261,6 @@ function BuildImgViewer(a) {
         if(imgIndex >= imgs.length-1)return;
         imgIndex++;
         imgWidth=document.querySelector("#popup-gallery img").clientWidth;
-        let imgHeight=document.querySelector("#popup-gallery img").clientHeight;
         popupWindow.style.width = imgWidth+"px";
         popupGallery.style.transform=`translateX(${-imgWidth * imgIndex}px)`;
         popupGallery.style.transition="transform 0.4s ease";
@@ -271,7 +269,6 @@ function BuildImgViewer(a) {
         if(imgIndex <=0 )return;
         imgIndex--;
         imgWidth=document.querySelector("#popup-gallery img").clientWidth;
-        let imgHeight=document.querySelector("#popup-gallery img").clientHeight;
         popupWindow.style.width = imgWidth+"px";
         popupGallery.style.transform=`translateX(${-imgWidth * imgIndex}px)`;
         popupGallery.style.transition="transform 0.4s ease";
@@ -285,7 +282,6 @@ function BuildImgViewer(a) {
     setTimeout(function () {
         popupBGfade.style.opacity = "0.7";
         popupBGfade.style.display = "block";
-        popupWindow.style.width = imgWidth+"px";
         if(window.innerWidth<600){popupWindow.style.maxWidth = "100%";}
         else if(window.innerHeight<300){popupWindow.style.maxWidth = "40%";}
         else{ popupWindow.style.maxWidth = "80%";}
@@ -293,7 +289,6 @@ function BuildImgViewer(a) {
         popupWindow.style.overflowY = "hidden";
         popupWindow.focus();
     }, 50)
-    console.log("hello");
 }
 imgs.forEach(a => a.addEventListener("click", () => BuildImgViewer(a)));
 window.addEventListener("resize", ()=>{
