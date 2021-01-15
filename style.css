@@ -161,8 +161,12 @@ li{
     transition: 0.4s ease;
     user-select: none;
 }
-#next-button:hover, #prev-button:hover{
-    font-size: 6rem;
+#next-button img,#prev-button img{
+    height: 1.5rem;
+    transition: 0.2s ease;
+} 
+#next-button:hover img, #prev-button:hover img{
+    height: 2rem;
 }
 /*popup*/
 .popup{
@@ -185,6 +189,10 @@ li{
     overflow-y: auto;
     overflow-x: hidden;
     transition: transform 0.5s var(--cubicBezier);
+}
+.gallery{
+    display: flex;
+    flex-wrap: wrap;
 }
 #popup-gallery{
     display: flex;

@@ -95,9 +95,15 @@ function CheckHeader() {
 }
 //topBtn
 const topBtn = document.createElement("span");
+const topBtnArrow = document.createElement("img");
 topBtn.classList.add("toTopBtn");
 topBtn.onclick=()=>window.location='#';
-topBtn.innerHTML="🠝 Az oldal tetejére"
+topBtnArrow.src="icons/up.png";
+topBtnArrow.style.height="0.7rem";
+topBtnArrow.style.margin="auto 0.3rem";
+topBtnArrow.style.opacity="0.7";
+topBtn.innerHTML="Az oldal tetejére";
+topBtn.appendChild(topBtnArrow);
 body.appendChild(topBtn);
 window.addEventListener("scroll", e => CheckCurrentSP());
 function CheckCurrentSP() {
@@ -187,11 +193,12 @@ const popupBGfade = document.createElement("div");
 popupBGfade.id = "popup-bgfade";
 const prevBtn = document.createElement("span");
 prevBtn.id="prev-button";
-prevBtn.innerHTML="🢐";
+const prevImg= document.createElement("img");
+prevImg.src="icons/prev.png";
 const nextBtn = document.createElement("span");
 nextBtn.id="next-button";
-nextBtn.innerHTML="🢒";
-const popupFigure = document.createElement("figure");
+const nextImg= document.createElement("img");
+nextImg.src="icons/next.png";
 //info popup
 function BuildPopup(a) {
     body.appendChild(popupWindow).appendChild(popupHeader).appendChild(popupCloseBtn);
@@ -246,10 +253,11 @@ function BuildImgViewer(a) {
     body.appendChild(popupBGfade);
     body.appendChild(popupWindow);
     popupWindow.appendChild(prevBtn);
+    prevBtn.appendChild(prevImg);
     popupWindow.appendChild(nextBtn);
+    nextBtn.appendChild(nextImg);
     popupWindow.appendChild(popupCloseBtn)
-    popupWindow.appendChild(popupFigure);
-    popupFigure.appendChild(popupGallery);
+    popupWindow.appendChild(popupGallery);
     
     let imgIndex = a.id;
     let imgWidth=document.querySelector("#popup-gallery img").clientWidth;
@@ -282,6 +290,7 @@ function BuildImgViewer(a) {
     setTimeout(function () {
         popupBGfade.style.opacity = "0.7";
         popupBGfade.style.display = "block";
+        popupWindow.style.width = imgWidth+"px";
         if(window.innerWidth<600){popupWindow.style.maxWidth = "100%";}
         else if(window.innerHeight<300){popupWindow.style.maxWidth = "40%";}
         else{ popupWindow.style.maxWidth = "80%";}
